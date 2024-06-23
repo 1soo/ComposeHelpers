@@ -57,6 +57,8 @@ function PostList(props){
 
     // 삭제 버튼 핸들러
     function DeleteHandler(id){
+        // 삭제 기능을 넣어주세요.
+        // localStorage key값: 'postList'
         setModalOn(false);
     }
 
