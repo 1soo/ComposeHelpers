@@ -35,10 +35,6 @@ function PostModal(props){
     // div 안에 input 태그, 라디오 태그를 사용해서 입력값 받기
     // postId를 제외한 값을 객체로 저장해서 PostList.js의 CreateHandler 호출
      function EntryHandler(event){
-        console.log(title);
-        console.log(content);
-        console.log(isAsk);
-        console.log(title);
         let listItem = {
             postId: 0,
             title: title,
