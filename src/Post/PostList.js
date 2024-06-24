@@ -63,14 +63,14 @@ function PostList(props) {
             postArray = JSON.parse(localStorage.getItem("postList"));
 
             postArray.forEach((post, index) => {
-                if (index === post.postId) {
-                    console.log(index, post.postId);
-                    localStorage.setItem("postList", JSON.stringify(postArray.filter((postValue) => postArray[index] !== postValue)));
+                if (id === post.postId) {
+                    localStorage.setItem("postList", JSON.stringify(postArray.filter((postValue) => postValue !== postArray[index])));
                 }
             })
         }
 
         setModalOn(false);
+
     }
 
     // 아이템 클릭 핸들러
