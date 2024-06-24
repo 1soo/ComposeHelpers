@@ -4,6 +4,8 @@ import styles from "./styles";
 function PostModal(props){
     // 수정 중인지 나타내는 변수
     const [EditProcess, setEditProcess] = useState(false);
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
 
     const isCreate = props.isCreate;
     const modalRef = useRef();
@@ -11,30 +13,33 @@ function PostModal(props){
     useEffect(()=>{
         modalRef.current.showModal();
         // 아이템 클릭 시
-        if(props.item){
-            document.querySelector('#itemTitle').innerHTML = props.item.title;
-            document.querySelector('#itemContent').innerHTML = props.item.content;
+        if (props.item) {
+            setTitle(props.item.title);
+            setContent(props.item.content);
         }
         // 작성 버튼 클릭 시
-        else{
-            // 인풋태그 넣어주세요!
-            document.querySelector('#itemTitle').innerHTML = '제목 인풋태그';
-            document.querySelector('#itemContent').innerHTML = '내용 인풋태그 or Textarea';
+        else {
+            setTitle("");
+            setContent("");
         }
 
         return (()=>{
             // 모달 창 종료시 실행하고 싶은 코드
         })
-    }, [])
+    }, [props.item])
 
     // 등록 버튼 핸들러
     // div 안에 input 태그, 라디오 태그를 사용해서 입력값 받기
     // postId를 제외한 값을 객체로 저장해서 PostList.js의 CreateHandler 호출
      function EntryHandler(event){
+        localStorage.clear();
+        alert('Local Storage가 비워졌습니다.');
+        console.log(title)
+        console.log(content)
         let listItem = {
             postId: 0,
-            title: '테스트입니다~',
-            content: '테스트 내용입니다~',
+            title: title,
+            content: content,
             isAsk: true,
             isComplete: false
         }
@@ -44,8 +49,8 @@ function PostModal(props){
     // 수정 버튼 핸들러
     // 수정 버튼 클릭 시 div 안은 input 태그로 바뀌어야하고, value는 받아온 item의 각 해당하는 값이 된다.
     function EditHandler(event){
-        document.querySelector('#itemTitle').innerHTML = '원래 제목 값을 value로 가지는 인풋태그';
-        document.querySelector('#itemContent').innerHTML = '원래 내용 값을 value로 가지는 인풋태그 or Textarea';
+        setTitle(props.item.title);
+        setContent(props.item.content);
         setEditProcess(true)
     }
 
@@ -60,6 +65,7 @@ function PostModal(props){
         }
         props.BtnHandlerSet.editHandler(editItem);
         setEditProcess(false);
+        props.modalHandler();
     }
 
     // 수정 취소 버튼 핸들러
@@ -70,6 +76,7 @@ function PostModal(props){
     // 삭제 버튼 핸들러
     function DeleteHandler(event){
         props.BtnHandlerSet.deleteHandler(props.item.postId);
+        props.modalHandler();
     }    
 
     // 버튼 종류
@@ -97,10 +104,33 @@ function PostModal(props){
 
     return(
         <dialog ref={modalRef}>
-            <div id="itemTitle" style={styles.modalTitle}></div>
-            <div id="itemContent" style={styles.modalContent}></div>
+            <div id="itemTitle" style={styles.modalTitle}>
+                {isCreate || EditProcess ? (
+                    <input
+                        type="text"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        placeholder="제목을 입력하세요"
+                        style={styles.modalTitleInput}
+                    />
+                ) : (
+                    title
+                )}
+            </div>
+            <div id="itemContent" style={styles.modalContent}>
+                {isCreate || EditProcess ? (
+                    <textarea
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
+                        placeholder="내용을 입력하세요"
+                        style={styles.modalContentInput}
+                    />
+                ) : (
+                    content
+                )}
+            </div>
             <div style={styles.modalBtnContainer}>
-                { buttonOutput } 
+                {buttonOutput}
             </div>
         </dialog>
     )

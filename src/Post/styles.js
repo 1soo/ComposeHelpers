@@ -77,16 +77,26 @@ const styles = {
         width: "800px",
         height: "150px",
         margin: "0px auto",
-        textAlign: "center",
         fontSize: "45px",
         lineHeight: "150px",
+        borderBottom: "1px solid #999"
+    },
+    modalTitleInput:{
+        width: "800px",
+        height: "80px",
+        margin: "0px auto",
+        fontSize: "30px",
         borderBottom: "1px solid #999"
     },
     modalContent:{
         width: "1000px",
         height: "500px",
-        margin: "0px auto",
-        fontSize: "40px"
+        margin: "0px auto"
+    },
+    modalContentInput:{
+        width: "1000px",
+        height: "500px",
+        margin: "0px auto"
     },
     modalBtnContainer:{
         width: "800px",
