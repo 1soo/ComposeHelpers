@@ -35,7 +35,6 @@ function PostList(props){
         listItem.postId = postId;
         postArray.push(listItem);
         localStorage.setItem('postList', JSON.stringify(postArray));
-        console.log(localStorage);
 
         setPostId(postId + 1);
         setModalOn(false);
