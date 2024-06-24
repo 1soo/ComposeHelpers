@@ -74,7 +74,6 @@ function PostModal(props){
         }
         props.BtnHandlerSet.editHandler(editItem);
         setEditProcess(false);
-        props.modalHandler();
     }
 
     // 수정 취소 버튼 핸들러
@@ -85,7 +84,6 @@ function PostModal(props){
     // 삭제 버튼 핸들러
     function DeleteHandler(event){
         props.BtnHandlerSet.deleteHandler(props.item.postId);
-        props.modalHandler();
     }    
 
     // 버튼 종류
