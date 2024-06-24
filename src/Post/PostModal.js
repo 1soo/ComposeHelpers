@@ -59,7 +59,7 @@ function PostModal(props){
 
     // 수정 완료 버튼 핸들러
     function EditCompleteHandler(event){
-        
+
         if (!title.trim() || !content.trim()) {
             alert("제목과 내용을 모두 입력하세요.");
             return;
