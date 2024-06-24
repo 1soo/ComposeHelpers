@@ -150,7 +150,6 @@ function PostModal(props){
                             style={styles.modalContentInput} />;
     }else{
         titleOutput = title;
-        isAskOutput = <div>{isAsk ? "문의" : "추천"}</div>;
         contentOutput = content;
     }
     
