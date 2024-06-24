@@ -120,7 +120,8 @@ function PostModal(props){
                             placeholder="제목을 입력하세요"
                             style={styles.modalTitleInput}
                         />;
-        isAskOutput = <>
+        isAskOutput = (isCreate || EditProcess) ? (
+                    <>
                         <label>
                             <input
                                 type="radio"
@@ -141,7 +142,7 @@ function PostModal(props){
                             />
                             추천
                         </label>
-                    </>;
+                    </>) : null;
         contentOutput = <textarea
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
@@ -155,18 +156,22 @@ function PostModal(props){
     
 
     return(
-        <dialog ref={modalRef}>
-            <div id="itemTitle" style={styles.modalTitle}>
-                { titleOutput }
-            </div>
-            <div style={styles.modalOption}>
-                { isAskOutput }
-            </div>
-            <div id="itemContent" style={styles.modalContent}>
-                { contentOutput }
-            </div>
-            <div style={styles.modalBtnContainer}>
-                { buttonOutput }
+        <dialog ref={modalRef} style={styles.modalContainer}>
+            <div style={styles.modalBox}>
+                <div id="itemTitle" style={styles.modalTitle}>
+                    { titleOutput }
+                </div>
+                {isAskOutput && (
+                    <div style={styles.modalOption}>
+                        {isAskOutput}
+                    </div>
+                )}
+                <div id="itemContent" style={styles.modalContent}>
+                    { contentOutput }
+                </div>
+                <div style={styles.modalBtnContainer}>
+                    { buttonOutput }
+                </div>
             </div>
         </dialog>
     )
