@@ -88,6 +88,10 @@ const styles = {
         fontSize: "30px",
         borderBottom: "1px solid #999"
     },
+    modalOption:{
+        textAlign: "center",
+        margin: "0px auto"
+    },
     modalContent:{
         width: "1000px",
         height: "500px",

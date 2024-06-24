@@ -6,6 +6,7 @@ function PostModal(props){
     const [EditProcess, setEditProcess] = useState(false);
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
+    const [isAsk, setIsAsk] = useState(true);
 
     const isCreate = props.isCreate;
     const modalRef = useRef();
@@ -16,11 +17,13 @@ function PostModal(props){
         if (props.item) {
             setTitle(props.item.title);
             setContent(props.item.content);
+            setIsAsk(props.item.isAsk);
         }
         // 작성 버튼 클릭 시
         else {
             setTitle("");
             setContent("");
+            setIsAsk(true);
         }
 
         return (()=>{
@@ -32,11 +35,15 @@ function PostModal(props){
     // div 안에 input 태그, 라디오 태그를 사용해서 입력값 받기
     // postId를 제외한 값을 객체로 저장해서 PostList.js의 CreateHandler 호출
      function EntryHandler(event){
+        console.log(title);
+        console.log(content);
+        console.log(isAsk);
+        console.log(title);
         let listItem = {
             postId: 0,
             title: title,
             content: content,
-            isAsk: true,
+            isAsk: isAsk,
             isComplete: false
         }
         props.BtnHandlerSet.createHandler(listItem);
@@ -111,6 +118,34 @@ function PostModal(props){
                     />
                 ) : (
                     title
+                )}
+            </div>
+            <div style={styles.modalOption}>
+                {isCreate || EditProcess ? (
+                    <>
+                        <label>
+                            <input
+                                type="radio"
+                                name="isAsk"
+                                value={true}
+                                checked={isAsk === true}
+                                onChange={() => setIsAsk(true)}
+                            />
+                            문의
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="isAsk"
+                                value={false}
+                                checked={isAsk === false}
+                                onChange={() => setIsAsk(false)}
+                            />
+                            추천
+                        </label>
+                    </>
+                ) : (
+                    <div>{isAsk ? "문의" : "추천"}</div>
                 )}
             </div>
             <div id="itemContent" style={styles.modalContent}>
