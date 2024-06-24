@@ -35,6 +35,12 @@ function PostModal(props){
     // div 안에 input 태그, 라디오 태그를 사용해서 입력값 받기
     // postId를 제외한 값을 객체로 저장해서 PostList.js의 CreateHandler 호출
      function EntryHandler(event){
+
+        if (!title.trim() || !content.trim()) {
+            alert("제목과 내용을 모두 입력하세요.");
+            return;
+        }
+
         let listItem = {
             postId: 0,
             title: title,
@@ -53,6 +59,12 @@ function PostModal(props){
 
     // 수정 완료 버튼 핸들러
     function EditCompleteHandler(event){
+        
+        if (!title.trim() || !content.trim()) {
+            alert("제목과 내용을 모두 입력하세요.");
+            return;
+        }
+
         let editItem = {
             postId: props.item.postId,
             title: title,
