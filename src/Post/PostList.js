@@ -3,7 +3,7 @@ import styles from "./styles";
 import PostItem from "./PostItem";
 import PostModal from "./PostModal";
 
-function PostList(props){
+function PostList(props) {
     const [modalOn, setModalOn] = useState(false);
     const [postId, setPostId] = useState(0);
     // 게시글 배열
@@ -15,22 +15,22 @@ function PostList(props){
     const [postItem, setPostItem] = useState();
 
     // 모달 활성화 여부
-    let ModalHandler = useCallback((event)=>{
+    let ModalHandler = useCallback((event) => {
         setModalOn(modalOn => !modalOn);
-    },[]);
+    }, []);
 
     // 작성 버튼 핸들러
-    function WriteBtnHandler(event){
+    function WriteBtnHandler(event) {
         setPostItem();
         setIsCreate(true);
         setModalOn(true);
     }
 
     // 작성 완료 버튼 핸들러
-    let CreateHandler = (listItem) => {        
+    let CreateHandler = (listItem) => {
         let postArray = [];
-        if(localStorage.getItem('postList')) { 
-            postArray = JSON.parse(localStorage.getItem('postList')); 
+        if (localStorage.getItem('postList')) {
+            postArray = JSON.parse(localStorage.getItem('postList'));
         }
         listItem.postId = postId;
         postArray.push(listItem);
@@ -41,12 +41,12 @@ function PostList(props){
     }
 
     // 수정 완료 버튼 핸들러
-    function EditHandler(editItem){
+    function EditHandler(editItem) {
         let postArray = [];
-        if(localStorage.getItem('postList')) { 
-            postArray = JSON.parse(localStorage.getItem('postList')); 
-            postArray.forEach((post, index)=>{
-                if(post.postId === editItem.postId){
+        if (localStorage.getItem('postList')) {
+            postArray = JSON.parse(localStorage.getItem('postList'));
+            postArray.forEach((post, index) => {
+                if (post.postId === editItem.postId) {
                     postArray[index] = editItem;
                 }
             });
@@ -56,29 +56,31 @@ function PostList(props){
     }
 
     // 삭제 버튼 핸들러
-    function DeleteHandler(id){
+    function DeleteHandler(id) {
         // 삭제 기능을 넣어주세요.
         // localStorage key값: 'postList'
         let postArray = [];
-    
-        if(localStorage.getItem("postList") !== null) {
+
+        if (localStorage.getItem("postList") !== null) {
             postArray = JSON.parse(localStorage.getItem("postList"));
-            
+
             postArray.forEach((post, index) => {
-                if(index === post.postId) {
+                if (index === post.postId) {
                     console.log(index, post.postId);
                     localStorage.setItem("postList", JSON.stringify(postArray.filter((postValue) => postArray[index] !== postValue)));
                 }
             })
 
-            setPostId(postId - 1);
+            if (postId >= 0) {
+                setPostId(postId - 1);
+            }
         }
 
         setModalOn(false);
     }
 
     // 아이템 클릭 핸들러
-    function ItemClickHandler(listItem){
+    function ItemClickHandler(listItem) {
         setPostItem(listItem);
         setIsCreate(false);
         setModalOn(true);
@@ -92,19 +94,19 @@ function PostList(props){
     }
 
     // 추천 게시글과 문의 게시글 분류
-    useEffect(()=>{
+    useEffect(() => {
         let postArray = [];
-        if(localStorage.getItem('postList')) { 
-            postArray = JSON.parse(localStorage.getItem('postList')); 
+        if (localStorage.getItem('postList')) {
+            postArray = JSON.parse(localStorage.getItem('postList'));
             let arrPosts = postArray.filter((post) => post.isAsk);
             let recmPosts = postArray.filter((post) => !post.isAsk);
             setAskArr(arrPosts);
             setRecmArr(recmPosts);
         };
-        
-    },[modalOn]);
 
-    return(
+    }, [modalOn]);
+
+    return (
         <>
             <div style={styles.mainTitle}>조립 헬퍼즈</div>
             <div style={styles.writeBtnBox}>
@@ -113,16 +115,16 @@ function PostList(props){
             <div style={styles.listBox}>
                 <div style={styles.listTitle}>추천 게시글</div>
                 <div style={styles.listArr}>
-                    {recmArr.map((post)=>{
-                        return <PostItem key={post.postId} item={post} clickFunc={ItemClickHandler}/>
+                    {recmArr.map((post) => {
+                        return <PostItem key={post.postId} item={post} clickFunc={ItemClickHandler} />
                     })}
                 </div>
             </div>
             <div style={styles.listBox}>
                 <div style={styles.listTitle}>문의 게시글</div>
                 <div style={styles.listArr}>
-                {askArr.map((post)=>{
-                        return <PostItem key={post.postId} item={post} clickFunc={ItemClickHandler}/>
+                    {askArr.map((post) => {
+                        return <PostItem key={post.postId} item={post} clickFunc={ItemClickHandler} />
                     })}
                 </div>
             </div>
