@@ -57,11 +57,9 @@ function PostList(props) {
 
     // 삭제 버튼 핸들러
     function DeleteHandler(id) {
-        // 삭제 기능을 넣어주세요.
-        // localStorage key값: 'postList'
         let postArray = [];
 
-        if (localStorage.getItem("postList") !== null) {
+        if (localStorage.getItem("postList") ) {
             postArray = JSON.parse(localStorage.getItem("postList"));
 
             postArray.forEach((post, index) => {
@@ -70,10 +68,6 @@ function PostList(props) {
                     localStorage.setItem("postList", JSON.stringify(postArray.filter((postValue) => postArray[index] !== postValue)));
                 }
             })
-
-            if (postId >= 0) {
-                setPostId(postId - 1);
-            }
         }
 
         setModalOn(false);
