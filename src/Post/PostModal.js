@@ -48,8 +48,6 @@ function PostModal(props){
     // 수정 버튼 핸들러
     // 수정 버튼 클릭 시 div 안은 input 태그로 바뀌어야하고, value는 받아온 item의 각 해당하는 값이 된다.
     function EditHandler(event){
-        setTitle(props.item.title);
-        setContent(props.item.content);
         setEditProcess(true)
     }
 
@@ -57,8 +55,8 @@ function PostModal(props){
     function EditCompleteHandler(event){
         let editItem = {
             postId: props.item.postId,
-            title: '테스트입니다~',
-            content: '수정된 내용입니다~',
+            title: title,
+            content: content,
             isAsk: props.item.isAsk,
             isComplete: props.item.isComplete
         }
