@@ -73,23 +73,6 @@ const styles = {
         lineHeight: "60px",
     },
     // 게시글 모달
-    modalContainer:{
-        position: "absolute",
-        left: "0",
-        top: "0",
-        zIndex: "100",
-        opacity: "0.95",
-        width: "100vw",
-        height: "100vh",
-        backgroundColor: "lightGray"
-    },
-    modalBox:{
-        width: "1000px",
-        height: "800px",
-        margin: "20px auto",
-        border: "1px solid #333",
-        borderRadius: "20%"
-    },
     modalTitle:{
         width: "800px",
         height: "150px",

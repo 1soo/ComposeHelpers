@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles";
 
 function PostModal(props){
@@ -6,7 +6,10 @@ function PostModal(props){
     const [EditProcess, setEditProcess] = useState(false);
 
     const isCreate = props.isCreate;
+    const modalRef = useRef();
+
     useEffect(()=>{
+        modalRef.current.showModal();
         // 아이템 클릭 시
         if(props.item){
             document.querySelector('#itemTitle').innerHTML = props.item.title;
@@ -70,36 +73,33 @@ function PostModal(props){
     }    
 
     return(
-        <div style={styles.modalContainer}>
-            <div style={styles.modalBox}>
-                <div id="itemTitle" style={styles.modalTitle}></div>
-                <div id="itemContent" style={styles.modalContent}></div>
-                <div style={styles.modalBtnContainer}>
-                    {
-                        isCreate
+        <dialog ref={modalRef}>
+            <div id="itemTitle" style={styles.modalTitle}></div>
+            <div id="itemContent" style={styles.modalContent}></div>
+            <div style={styles.modalBtnContainer}>
+                {
+                    isCreate
+                    ?
+                        <>
+                            <button onClick={EntryHandler} style={styles.modalCreateBtn}>등록</button>
+                            <button onClick={props.modalHandler} style={styles.modalCancelBtn}>취소</button>
+                        </>
+                    :
+                        EditProcess
                         ?
                             <>
-                                <button onClick={EntryHandler} style={styles.modalCreateBtn}>등록</button>
-                                <button onClick={props.modalHandler} style={styles.modalCancelBtn}>취소</button>
+                                <button onClick={EditCompleteHandler} style={styles.modalEditBtn}>수정 완료</button>
+                                <button onClick={EditCancelHandler} style={styles.modalCancelBtn}>취소</button>
                             </>
-                        :
-                            EditProcess
-                            ?
-                                <>
-                                    <button onClick={EditCompleteHandler} style={styles.modalEditBtn}>수정 완료</button>
-                                    <button onClick={EditCancelHandler} style={styles.modalCancelBtn}>취소</button>
-                                </>
-                            :   
-                                <>
-                                    <button onClick={EditHandler} style={styles.modalEditBtn}>수정</button>
-                                    <button onClick={DeleteHandler} style={styles.modalDeleteBtn}>삭제</button>
-                                    <button onClick={props.modalHandler} style={styles.modalCancelBtn}>닫기</button>
-                                </>   
-                    } 
-                </div>
-                
+                        :   
+                            <>
+                                <button onClick={EditHandler} style={styles.modalEditBtn}>수정</button>
+                                <button onClick={DeleteHandler} style={styles.modalDeleteBtn}>삭제</button>
+                                <button onClick={props.modalHandler} style={styles.modalCancelBtn}>닫기</button>
+                            </>   
+                } 
             </div>
-        </div>
+        </dialog>
     )
 }
 
