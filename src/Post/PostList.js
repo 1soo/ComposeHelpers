@@ -78,10 +78,15 @@ function PostList(props){
 
     // 추천 게시글과 문의 게시글 분류
     useEffect(()=>{
-        // 추천 게시글과 문의 게시글을 구분하여 읽기 기능을 넣어주세요.
-        // 각 배열 recmArr과 askArr은 state 변수로 저장했습니다.
-        // 밑 코드를 참조해서 작성해주세요.
-        // localStorage key값: 'postList'
+        let postArray = [];
+        if(localStorage.getItem('postList')) { 
+            postArray = JSON.parse(localStorage.getItem('postList')); 
+            let arrPosts = postArray.filter((post) => post.isAsk);
+            let recmPosts = postArray.filter((post) => !post.isAsk);
+            setAskArr(arrPosts);
+            setRecmArr(recmPosts);
+        };
+        
     },[modalOn]);
 
     return(

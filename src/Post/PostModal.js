@@ -111,24 +111,18 @@ function PostModal(props){
         </>   
     }
 
-    return(
-        <dialog ref={modalRef}>
-            <div id="itemTitle" style={styles.modalTitle}>
-                {isCreate || EditProcess ? (
-                    <input
-                        type="text"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        placeholder="제목을 입력하세요"
-                        style={styles.modalTitleInput}
-                    />
-                ) : (
-                    title
-                )}
-            </div>
-            <div style={styles.modalOption}>
-                {isCreate || EditProcess ? (
-                    <>
+
+    // 제목, 내용, 문의/추천 여부
+    let titleOutput, isAskOutput, contentOutput;
+    if(isCreate, EditProcess){
+        titleOutput = <input
+                            type="text"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            placeholder="제목을 입력하세요"
+                            style={styles.modalTitleInput}
+                        />;
+        isAskOutput = <>
                         <label>
                             <input
                                 type="radio"
@@ -149,25 +143,32 @@ function PostModal(props){
                             />
                             추천
                         </label>
-                    </>
-                ) : (
-                    <div>{isAsk ? "문의" : "추천"}</div>
-                )}
+                    </>;
+        contentOutput = <textarea
+                            value={content}
+                            onChange={(e) => setContent(e.target.value)}
+                            placeholder="내용을 입력하세요"
+                            style={styles.modalContentInput} />;
+    }else{
+        titleOutput = title;
+        isAskOutput = <div>{isAsk ? "문의" : "추천"}</div>;
+        contentOutput = content;
+    }
+    
+
+    return(
+        <dialog ref={modalRef}>
+            <div id="itemTitle" style={styles.modalTitle}>
+                { titleOutput }
+            </div>
+            <div style={styles.modalOption}>
+                { isAskOutput }
             </div>
             <div id="itemContent" style={styles.modalContent}>
-                {isCreate || EditProcess ? (
-                    <textarea
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        placeholder="내용을 입력하세요"
-                        style={styles.modalContentInput}
-                    />
-                ) : (
-                    content
-                )}
+                { contentOutput }
             </div>
             <div style={styles.modalBtnContainer}>
-                {buttonOutput}
+                { buttonOutput }
             </div>
         </dialog>
     )
