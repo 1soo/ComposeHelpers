@@ -19,7 +19,12 @@ function PostItem(props){
             <div style={styles.itemBox} onMouseOver={ItemHoverHandler} onClick={onClickHandler}> 
                 <div style={styles.itemTitle}>{item.title}</div>
                 <div style={styles.itemContent}>{item.content}</div>
-                {item.isAsk && <div style={styles.itemIsComplete}>{item.isComplete?'해결완료!':'미해결..'}</div>}
+                {item.isAsk && 
+                    <div style={item.isComplete ? styles.itemStatusComplete 
+                                                : styles.itemStatusIncomplete}>
+                        {item.isComplete?'해결 완료!':'아직 해결되지 않았어요 !'}
+                    </div>
+                }
             </div>
         </>
     )

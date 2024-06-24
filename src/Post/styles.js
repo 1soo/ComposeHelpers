@@ -1,10 +1,14 @@
 const styles = {
+    mainContainer:{
+        paddingLeft: "40px",
+        paddingRight: "40px",
+    },
     // 헤더 
     mainTitle:{
         width: "100%",
-        height: "120px",
+        height: "100px",
         color: "333",
-        fontWeight: "bold",
+        // fontWeight: "bold",
         fontSize: "60px",
         textAlign: "center",
         lineHeight: "120px",
@@ -12,23 +16,26 @@ const styles = {
     },
     // 작성하기 버튼
     writeBtnBox:{
-        width: "100%",
-        height: "50px",
-        textAlign: "right"
+        textAlign: 'right',
+        margin: '20px 0',
     },
     writeBtn:{
-        width: "120px",
-        height: "50px",
-        lineHeight: "50px",
-        marginTop: "10px",
-        marginRight: "60px",
-        backgroundColor: "lightgray",
+        padding: '10px 20px',
+        fontSize: '16px',
+        borderRadius: '5px',
+        border: '1px solid #ccc',
+        backgroundColor: '#lightgray',
+        cursor: 'pointer',
     },
     // 게시글 목록
     listBox:{
         width: "100%",
         height: "360px",
-        overflow: 'hidden'
+        overflowX: 'auto',
+        overflowY: 'hidden',
+        marginBottom: '20px',
+        display: 'flex',
+        flexDirection: 'column',
     },
     listTitle:{
         width: "100%",
@@ -39,39 +46,60 @@ const styles = {
         color: "#333"
     },
     listArr:{
-        width: "100%",
-        height: "310px",
-        whiteSpace: "nowrap",
-        overflow: "auto",
-        overflowY: "hidden"
+        display: 'flex',
+        flexWrap: 'nowrap',
+        gap: '10px',
     },
     // 게시글 아이템
     itemBox:{
-        display: "inline-block",
-        border: "1px solid #999",
-        borderRadius: "10%",
-        width: "400px",
-        height: "280px",
-        margin: "5px 20px",
-        textAlign: "center"
+        backgroundColor: 'white',
+        borderRadius: '15px',
+        width: '300px',
+        height: '190px',
+        minWidth: '300px',
+        minHeight: '180px',
+        padding: '20px',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'stretch',
+        margin: '10px 5px',
+        wordWrap: 'break-word',
+        overflowWrap: 'break-word',
     },
     itemTitle:{
-        width: "100%",
-        height: "70px",
-        lineHeight: "70px",
-        fontSize: "30px",
-        fontWeight: "bold"
+        fontSize: '30px',
+        fontWeight: 'bold',
+        marginBottom: '10px',
+        textAlign: 'center',
+        wordWrap: 'break-word',
+        overflowWrap: 'break-word',
     },
     itemContent:{
-        width: "100%",
-        height: "150px",
-        lineHeight: "50px",
+        fontSize: '20px',
+        marginBottom: '10px',
+        wordWrap: 'break-word',
+        overflowWrap: 'break-word',
+        display: '-webkit-box', 
+        WebkitLineClamp: 4, //(보여줄 라인 수)
+        WebkitBoxOrient: 'vertical', 
+        overflow: 'hidden', 
+        textOverflow: 'ellipsis',
+        flexGrow: 1,
     },
-    itemIsComplete:{
-        width: "100%",
-        height: "60px",
-        lineHeight: "60px",
+    itemStatusComplete: {
+        color: 'green',
+        fontWeight: 'bold',
+        fontSize: '18px',
+        marginTop: '10px',
     },
+    itemStatusIncomplete: {
+        color: 'red',
+        fontWeight: 'bold',
+        fontSize: '18px',
+        marginTop: '10px',
+    },
+
     // 게시글 모달
     modalContainer: {
         position: 'fixed',
@@ -126,14 +154,16 @@ const styles = {
     },
     modalContentInput:{
         width: '100%',
+        minHeight: '300px',
         padding: '10px',
         fontSize: '16px',
-        height: '150px',
         resize: 'none',
         border: '1px solid #ced4da',
         borderRadius: '5px',
         flex: 1,
         boxSizing: 'border-box',
+        wordWrap: 'break-word',
+        overflowWrap: 'break-word',
     },
     modalBtnContainer:{
         display: 'flex',

@@ -107,7 +107,7 @@ function PostList(props) {
     }, [modalOn]);
 
     return (
-        <>
+        <div style={styles.mainContainer}>
             <div style={styles.mainTitle}>조립 헬퍼즈</div>
             <div style={styles.writeBtnBox}>
                 <button style={styles.writeBtn} onClick={WriteBtnHandler}>글 작성하기</button>
@@ -129,7 +129,7 @@ function PostList(props) {
                 </div>
             </div>
             {modalOn && <PostModal modalHandler={ModalHandler} item={postItem} isCreate={isCreate} BtnHandlerSet={BtnHandlerSet} />}
-        </>
+        </div>
     )
 }
 
