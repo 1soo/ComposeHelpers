@@ -114,7 +114,7 @@ function PostModal(props){
 
     // 제목, 내용, 문의/추천 여부
     let titleOutput, isAskOutput, contentOutput;
-    if(isCreate, EditProcess){
+    if(isCreate || EditProcess){
         titleOutput = <input
                             type="text"
                             value={title}
