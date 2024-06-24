@@ -175,6 +175,24 @@ const styles = {
         padding: '10px 20px',
         cursor: 'pointer',
         transition: 'background-color 0.3s ease',
+    },
+    modalSolveBtn:{
+        backgroundColor: '#007BFF',
+        color: 'white',
+        border: 'none',
+        borderRadius: '5px',
+        padding: '10px 20px',
+        cursor: 'pointer',
+        transition: 'background-color 0.3s ease',
+    },
+    modalNonsolveBtn:{
+        backgroundColor: '#dc3545',
+        color: 'white',
+        border: 'none',
+        borderRadius: '5px',
+        padding: '10px 20px',
+        cursor: 'pointer',
+        transition: 'background-color 0.3s ease',
     }
 }
 

@@ -7,6 +7,7 @@ function PostModal(props){
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [isAsk, setIsAsk] = useState(true);
+    const [isComplete, setIsComplete] = useState(false);
 
     const isCreate = props.isCreate;
     const modalRef = useRef();
@@ -18,6 +19,7 @@ function PostModal(props){
             setTitle(props.item.title);
             setContent(props.item.content);
             setIsAsk(props.item.isAsk);
+            setIsComplete(props.item.isComplete)
         }
         // 작성 버튼 클릭 시
         else {
@@ -84,7 +86,24 @@ function PostModal(props){
     // 삭제 버튼 핸들러
     function DeleteHandler(event){
         props.BtnHandlerSet.deleteHandler(props.item.postId);
-    }    
+    } 
+
+    //해결 버튼 핸들러
+    function EditSolveHandler(event){
+        setIsComplete((prevIsComplete) => {
+            const newIsComplete = !prevIsComplete;
+            let editItem = {
+                postId: props.item.postId,
+                title: title,
+                content: content,
+                isAsk: isAsk,
+                isComplete: newIsComplete
+            };
+            props.BtnHandlerSet.editHandler(editItem);
+            setEditProcess(false);
+            return newIsComplete;
+        });
+    }
 
     // 버튼 종류
     let buttonOutput;
@@ -95,11 +114,17 @@ function PostModal(props){
             <button onClick={props.modalHandler} style={styles.modalCancelBtn}>취소</button>
         </>
     }else if(EditProcess){
-        buttonOutput =
-        <> 
-            <button onClick={EditCompleteHandler} style={styles.modalEditBtn}>수정 완료</button>
-            <button onClick={EditCancelHandler} style={styles.modalCancelBtn}>취소</button>
-        </>
+        buttonOutput = (
+            <>
+                <button 
+                    onClick={EditSolveHandler} 
+                    style={isComplete ? styles.modalNonsolveBtn : styles.modalSolveBtn}>
+                    {isComplete ? "미해결" : "해결"}
+                </button>
+                <button onClick={EditCompleteHandler} style={styles.modalEditBtn}>수정 완료</button>
+                <button onClick={EditCancelHandler} style={styles.modalCancelBtn}>취소</button>
+            </>
+        );
     }else{
         buttonOutput = 
         <>
