@@ -227,9 +227,10 @@ const styles = {
     },
 
     modalPartsBtn: {
-        backgroundColor: "rgb(51,51,51)",
+        backgroundColor: "#CF9FFF",
+        marginLeft: "10px",
         color: "white",
-        width: "50px"
+        width: "45px"
     },
 
     partsList: {

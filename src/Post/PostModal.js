@@ -237,9 +237,6 @@ function PostModal(props) {
 
                 {partsModal}
             </dialog>
-
-
-           
         </>
     )
 }
