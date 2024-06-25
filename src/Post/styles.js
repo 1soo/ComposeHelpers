@@ -285,7 +285,6 @@ const styles = {
         margin: '5px 0',
         borderRadius: '15px',
     },
-
     buttonContainer: {
         marginTop: '100px'
     },

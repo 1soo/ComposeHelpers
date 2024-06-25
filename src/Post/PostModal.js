@@ -255,7 +255,9 @@ function PostModal(props){
                         </div>
                     )}
                     <div id="itemContent" style={styles.modalContent}>
-                        {contentOutput}
+                        <div style={{ width: '470px' }}>
+                            {contentOutput}
+                        </div>
                         <button id="modalPartsBtn" style={styles.modalPartsBtn} onClick={PartOpenHandler}>
                             부품 정보
                         </button>
