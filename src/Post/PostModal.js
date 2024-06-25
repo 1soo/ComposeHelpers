@@ -245,7 +245,6 @@ function PostModal(props){
                     <button id="modalPartsBtn" style={styles.modalPartsBtn}>부품 정보</button>
                 </div>
                 <div id="itemReply" style={styles.modalReplyContainer}>
-
                 </div>
                 <div style={styles.modalBtnContainer}>
                     {buttonOutput}
@@ -253,6 +252,7 @@ function PostModal(props){
             </div>
             {partsModal}
         </dialog>
+
     )
 }
 
