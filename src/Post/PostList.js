@@ -44,11 +44,21 @@ function PostList(props) {
             postArray = JSON.parse(localStorage.getItem('postList'));
         }
         listItem.postId = postId;
+        listItem.date = getDate();
         postArray.push(listItem);
         localStorage.setItem('postList', JSON.stringify(postArray));
 
         setPostId(postId + 1);
         setModalOn(false);
+    }
+
+    // 현재 날짜 반환 함수
+    function getDate() {
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        return `${year}.${month}.${day}`;
     }
 
     // 수정 완료 버튼 핸들러

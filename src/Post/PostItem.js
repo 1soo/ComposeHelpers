@@ -18,6 +18,7 @@ function PostItem(props){
         <>
             <div style={styles.itemBox} onMouseOver={ItemHoverHandler} onClick={onClickHandler}> 
                 <div style={styles.itemTitle}>{item.title}</div>
+                <div style={styles.itemDate}>{props.item.date}</div>
                 <div style={styles.itemContent}>{item.content}</div>
                 {item.isAsk && 
                     <div style={item.isComplete ? styles.itemStatusComplete 

@@ -9,6 +9,7 @@ function PostModal(props){
     const [content, setContent] = useState("");
     const [isAsk, setIsAsk] = useState(true);
     const [isComplete, setIsComplete] = useState(false);
+    const [date, setDate] = useState("");
 
     // 부품 정보 창
     const [partsOn, setPartsOn] = useState(false);
@@ -24,9 +25,10 @@ function PostModal(props){
         // 아이템 클릭 시
         if (props.item) {
             setTitle(props.item.title);
+            setDate(props.item.date);
             setContent(props.item.content);
             setIsAsk(props.item.isAsk);
-            setIsComplete(props.item.isComplete)
+            setIsComplete(props.item.isComplete);
         }
         // 작성 버튼 클릭 시
         else {
@@ -54,6 +56,7 @@ function PostModal(props){
         let listItem = {
             postId: 0,
             title: title,
+            date: date,
             content: content,
             isAsk: isAsk,
             isComplete: isComplete
@@ -78,6 +81,7 @@ function PostModal(props){
         let editItem = {
             postId: props.item.postId,
             title: title,
+            date: date,
             content: content,
             isAsk: props.item.isAsk,
             isComplete: props.item.isComplete
@@ -103,6 +107,7 @@ function PostModal(props){
             let editItem = {
                 postId: props.item.postId,
                 title: title,
+                date: date,
                 content: content,
                 isAsk: isAsk,
                 isComplete: newIsComplete
@@ -233,28 +238,37 @@ function PostModal(props){
 
 
     return (
-        <dialog ref={modalRef} style={styles.modalContainer}>
-            <div style={styles.modalBox}>
-                <div id="itemTitle" style={styles.modalTitle}>
-                    {titleOutput}
-                </div>
-                {isAskOutput && (
-                    <div style={styles.modalOption}>
-                        {isAskOutput}
+        <>
+            <dialog ref={modalRef} style={styles.modalContainer}>
+                <div style={styles.modalBox}>
+                    <div id="itemTitle" style={styles.modalTitle}>
+                        {titleOutput}
                     </div>
-                )}
-                <div id="itemContent" style={styles.modalContent}>
-                    {contentOutput}
-                    <button id="modalPartsBtn" style={styles.modalPartsBtn} onClick={PartOpenHandler} >부품 정보</button>
+                    {!isCreate && (
+                        <div style={styles.modalDate}>
+                            작성일: {date}
+                        </div>
+                    )}
+                    {isAskOutput && (
+                        <div style={styles.modalOption}>
+                            {isAskOutput}
+                        </div>
+                    )}
+                    <div id="itemContent" style={styles.modalContent}>
+                        <div style={{ width: '470px' }}>
+                            {contentOutput}
+                        </div>
+                        <button id="modalPartsBtn" style={styles.modalPartsBtn} onClick={PartOpenHandler}>
+                            부품 정보
+                        </button>
+                    </div>
+                    <div style={styles.modalBtnContainer}>
+                        {buttonOutput}
+                    </div>
                 </div>
-                <div id="itemReply" style={styles.modalReplyContainer}>
-                </div>
-                <div style={styles.modalBtnContainer}>
-                    {buttonOutput}
-                </div>
-            </div>
-            {partsOn && partsModal}
-        </dialog>
+                {partsOn && partsModal}
+            </dialog>
+        </>
 
     )
 }

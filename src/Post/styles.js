@@ -70,10 +70,17 @@ const styles = {
     itemTitle:{
         fontSize: '30px',
         fontWeight: 'bold',
-        marginBottom: '10px',
+        marginBottom: '5px',
         textAlign: 'center',
         wordWrap: 'break-word',
         overflowWrap: 'break-word',
+    },
+    itemDate: {
+        fontSize: '14px',
+        color: '#666',
+        marginTop: '5px',
+        marginBottom: '5px',
+        textAlign: 'right',
     },
     itemContent:{
         fontSize: '20px',
@@ -145,6 +152,13 @@ const styles = {
         width: '100%',
         display: 'flex',
         justifyContent: 'space-around',
+    },
+    modalDate: {
+        fontSize: '14px',
+        color: '#666',
+        marginTop: '10px',
+        marginBottom: '5px',
+        textAlign: 'right',
     },
     modalContent:{
         width: '100%',
@@ -271,7 +285,6 @@ const styles = {
         margin: '5px 0',
         borderRadius: '15px',
     },
-
     buttonContainer: {
         marginTop: '100px'
     },
