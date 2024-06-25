@@ -25,8 +25,12 @@ function PostModal(props) {
     useEffect(() => {
         modalRef.current.showModal();
         // 아이템 클릭 시
-        if (props.postId !== null) {
-            setPostItem(JSON.parse(localStorage.getItem('postList')).filter((post)=>post.postId === props.postId)[0]);
+        if (!props.isCreate) {
+            if(JSON.parse(localStorage.getItem('postList'))){
+                setPostItem(JSON.parse(localStorage.getItem('postList')).filter((post)=>post.postId === props.postId)[0]);
+            }else{
+                alert('localStorage에 해당 데이터가 저장되어 있지 않습니다.');
+            }
         }
         // 작성 버튼 클릭 시
         else {
@@ -267,7 +271,7 @@ function PostModal(props) {
 
 
     // 제목, 내용, 문의/추천 여부
-    let titleOutput, isAskOutput, contentOutput;
+    let titleOutput, isAskOutput, contentOutput, dateOutput, partsOutput;
     if (isCreate || EditProcess) {
         titleOutput = <input
             type="text"
@@ -276,37 +280,43 @@ function PostModal(props) {
             placeholder="제목을 입력하세요"
             style={styles.modalTitleInput}
         />;
-        isAskOutput = (isCreate || EditProcess) ? (
-            <>
-                <label>
-                    <input
-                        type="radio"
-                        name="isAsk"
-                        value={true}
-                        checked={isAsk === true}
-                        onChange={() => setIsAsk(true)}
-                    />
-                    문의
-                </label>
-                <label>
-                    <input
-                        type="radio"
-                        name="isAsk"
-                        value={false}
-                        checked={isAsk === false}
-                        onChange={() => setIsAsk(false)}
-                    />
-                    추천
-                </label>
-            </>) : null;
+        isAskOutput =<div style={styles.modalOption}>
+                        <label>
+                            <input
+                                type="radio"
+                                name="isAsk"
+                                value={true}
+                                checked={isAsk === true}
+                                onChange={() => setIsAsk(true)}
+                            />
+                            문의
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="isAsk"
+                                value={false}
+                                checked={isAsk === false}
+                                onChange={() => setIsAsk(false)}
+                            />
+                            추천
+                        </label>
+                    </div>;
+            
         contentOutput = <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="내용을 입력하세요"
             style={styles.modalContentInput} />;
+        
+        partsOutput = partsModal;
     } else {
         titleOutput = title;
         contentOutput = content;
+        dateOutput = <div style={styles.modalDate}>
+                        작성일: {date}
+                    </div>;
+        partsOutput = viewModal;
     }
 
 
@@ -316,16 +326,8 @@ function PostModal(props) {
                 <div id="itemTitle" style={styles.modalTitle}>
                     {titleOutput}
                 </div>
-                {(!isCreate && !EditProcess) && (
-                    <div style={styles.modalDate}>
-                        작성일: {date}
-                    </div>
-                )}
-                {isAskOutput && (
-                    <div style={styles.modalOption}>
-                        {isAskOutput}
-                    </div>
-                )}
+                {dateOutput}
+                {isAskOutput} 
                 <div id="itemContent" style={styles.modalContent}>
                     <div style={{ width: '470px' }}>
                         {contentOutput}
@@ -341,7 +343,7 @@ function PostModal(props) {
                     {buttonOutput}
                 </div>
             </div>
-            {partsOn && partsModal}
+            {partsOn && partsOutput}
         </dialog>
     )
 }
