@@ -60,7 +60,6 @@ function PostList(props) {
             });
             localStorage.setItem('postList', JSON.stringify(postArray));
         }
-        setModalOn(false);
     }
 
     // 삭제 버튼 핸들러
