@@ -10,6 +10,9 @@ function PostModal(props){
     const [isAsk, setIsAsk] = useState(true);
     const [isComplete, setIsComplete] = useState(false);
 
+    // 부품 정보 창
+    const [partsOn, setPartsOn] = useState(false);
+
     // 생성 버튼인지 게시글 클릭인지 여부
     const isCreate = props.isCreate;
     // 모달 Ref
@@ -112,12 +115,12 @@ function PostModal(props){
     
     // 부품 정보 열기 버튼 핸들러
     function PartOpenHandler(event){
-
+        setPartsOn(true);
     }
 
     // 부품 정보 닫기 버튼 핸들러
     function PartCloseHandler(event){
-        
+        setPartsOn(false);
     }
 
     // 버튼 종류
@@ -180,7 +183,7 @@ function PostModal(props){
             </div>
 
             <div className="buttonContainer" style={styles.buttonContainer}>
-                <button className="closeInfoBtn" style={styles.closeInfoBtn}>정보 접기</button>
+                <button className="closeInfoBtn" style={styles.closeInfoBtn} onClick={PartCloseHandler}>정보 접기</button>
             </div>
         </div>
 
@@ -242,7 +245,7 @@ function PostModal(props){
                 )}
                 <div id="itemContent" style={styles.modalContent}>
                     {contentOutput}
-                    <button id="modalPartsBtn" style={styles.modalPartsBtn}>부품 정보</button>
+                    <button id="modalPartsBtn" style={styles.modalPartsBtn} onClick={PartOpenHandler} >부품 정보</button>
                 </div>
                 <div id="itemReply" style={styles.modalReplyContainer}>
                 </div>
@@ -250,7 +253,7 @@ function PostModal(props){
                     {buttonOutput}
                 </div>
             </div>
-            {partsModal}
+            {partsOn && partsModal}
         </dialog>
 
     )
