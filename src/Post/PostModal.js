@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles";
 
-function PostModal(props){
+function PostModal(props) {
     // 수정 중인지 여부
     const [EditProcess, setEditProcess] = useState(false);
     // 게시글 아이템
@@ -22,7 +22,7 @@ function PostModal(props){
     const modalRef = useRef();
 
     // 컴포넌트 생성시 값들 초기화
-    useEffect(()=>{
+    useEffect(() => {
         modalRef.current.showModal();
         // 아이템 클릭 시
         if (props.postId !== null) {
@@ -125,14 +125,14 @@ function PostModal(props){
             return newIsComplete;
         });
     }
-    
+
     // 부품 정보 열기 버튼 핸들러
-    function PartOpenHandler(event){
+    function PartOpenHandler(event) {
         setPartsOn(true);
     }
 
     // 부품 정보 닫기 버튼 핸들러
-    function PartCloseHandler(event){
+    function PartCloseHandler(event) {
         setPartsOn(false);
     }
 
@@ -170,29 +170,94 @@ function PostModal(props){
             <h3>부품 정보</h3>
 
             <div className="partsList" style={styles.partsList}>
-               
-                    <button style={styles.partBtn}>CPU</button>
-                
+                <div className="partsBox" style={styles.partsBox}>
+                    <label style={styles.partsLabel}>
+                        <span style={styles.partsTitle}>CPU</span>
+                        <input type="text" style={styles.partsText} />
+                    </label>
+                </div>
 
-               
-                    <button style={styles.partBtn}>그래픽카드</button>
-               
+                <div className="partsBox" style={styles.partsBox}>
+                    <label style={styles.partsLabel}>
+                        <span style={styles.partsTitle}>그래픽카드</span>
+                        <input type="text" style={styles.partsText} />
+                    </label>
+                </div>
 
-             
-                    <button style={styles.partBtn}>메인보드</button>
-             
+                <div className="partsBox" style={styles.partsBox}>
+                    <label style={styles.partsLabel}>
+                        <span style={styles.partsTitle}>메인보드</span>
+                        <input type="text" style={styles.partsText} />
+                    </label>
+                </div>
 
-               
-                    <button style={styles.partBtn}>메모리</button>
-                
+                <div className="partsBox" style={styles.partsBox}>
+                    <label style={styles.partsLabel}>
+                        <span style={styles.partsTitle}>메모리</span>
+                        <input type="text" style={styles.partsText} />
+                    </label >
+                </div>
 
-            
-                    <button style={styles.partBtn}>파워</button>
-               
+                <div className="partsBox" style={styles.partsBox}>
+                    <label style={styles.partsLabel}>
+                        <span style={styles.partsTitle}>파워</span>
+                        <input type="text" style={styles.partsText} />
+                    </label>
+                </div>
 
-               
-                    <button style={styles.partBtn}>쿨러</button>
-             
+                <div className="partsBox" style={styles.partsBox}>
+                    <label style={styles.partsLabel}>
+                        <span style={styles.partsTitle}>쿨러</span>
+                        <input type="text" style={styles.partsText} />
+                    </label>
+                </div>
+            </div>
+
+            <div className="buttonContainer" style={styles.buttonContainer}>
+                <button className="closeInfoBtn" style={styles.closeInfoBtn} onClick={PartCloseHandler}>정보 접기</button>
+            </div>
+        </div>
+
+    let viewModal =
+        <div id="partsModal" style={styles.partsModal}>
+            <h3>부품 정보</h3>
+
+            <div className="partsList" style={styles.partsList}>
+                <div className="partsBox" style={styles.partsBox}>
+                    <label style={styles.partsLabel}>
+                        <span style={styles.partsTitle}>CPU</span>
+                    </label>
+                </div>
+
+                <div className="partsBox" style={styles.partsBox}>
+                    <label style={styles.partsLabel}>
+                        <span style={styles.partsTitle}>그래픽카드</span>
+                    </label>
+                </div>
+
+                <div className="partsBox" style={styles.partsBox}>
+                    <label style={styles.partsLabel}>
+                        <span style={styles.partsTitle}>메인보드</span>
+                    </label>
+                </div>
+
+                <div className="partsBox" style={styles.partsBox}>
+                    <label style={styles.partsLabel}>
+                        <span style={styles.partsTitle}>메모리</span>
+                    </label >
+                </div>
+
+                <div className="partsBox" style={styles.partsBox}>
+                    <label style={styles.partsLabel}>
+                        <span style={styles.partsTitle}>파워</span>
+                    </label>
+                </div>
+
+                <div className="partsBox" style={styles.partsBox}>
+                    <label style={styles.partsLabel}>
+                        <span style={styles.partsTitle}>쿨러</span>
+                    </label>
+                </div>
             </div>
 
             <div className="buttonContainer" style={styles.buttonContainer}>
