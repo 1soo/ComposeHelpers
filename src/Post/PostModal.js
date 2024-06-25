@@ -2,16 +2,20 @@ import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles";
 
 function PostModal(props){
-    // 수정 중인지 나타내는 변수
+    // 수정 중인지 여부
     const [EditProcess, setEditProcess] = useState(false);
+    // 게시글 아이템 데이터
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [isAsk, setIsAsk] = useState(true);
     const [isComplete, setIsComplete] = useState(false);
 
+    // 생성 버튼인지 게시글 클릭인지 여부
     const isCreate = props.isCreate;
+    // 모달 Ref
     const modalRef = useRef();
 
+    // 컴포넌트 생성시 값들 초기화
     useEffect(()=>{
         modalRef.current.showModal();
         // 아이템 클릭 시
@@ -26,12 +30,13 @@ function PostModal(props){
             setTitle("");
             setContent("");
             setIsAsk(true);
+            setIsComplete(false);
         }
 
         return (()=>{
             // 모달 창 종료시 실행하고 싶은 코드
         })
-    }, [props.item])
+    }, [])
 
     // 등록 버튼 핸들러
     // div 안에 input 태그, 라디오 태그를 사용해서 입력값 받기
@@ -48,7 +53,7 @@ function PostModal(props){
             title: title,
             content: content,
             isAsk: isAsk,
-            isComplete: false
+            isComplete: isComplete
         }
         props.BtnHandlerSet.createHandler(listItem);
     }
@@ -187,7 +192,7 @@ function PostModal(props){
                 </div>
                 {isAskOutput && (
                     <div style={styles.modalOption}>
-                        {isAskOutput}
+                        { isAskOutput }
                     </div>
                 )}
                 <div id="itemContent" style={styles.modalContent}>

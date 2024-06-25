@@ -1,18 +1,18 @@
 const styles = {
     mainContainer:{
-        paddingLeft: "40px",
-        paddingRight: "40px",
+        paddingLeft: '40px',
+        paddingRight: '40px',
     },
     // 헤더 
     mainTitle:{
-        width: "100%",
-        height: "100px",
-        color: "333",
-        // fontWeight: "bold",
-        fontSize: "60px",
-        textAlign: "center",
-        lineHeight: "120px",
-        borderBottom: "1px solid #555"
+        width: '100%',
+        height: '100px',
+        color: '333',
+        // fontWeight: 'bold',
+        fontSize: '60px',
+        textAlign: 'center',
+        lineHeight: '120px',
+        borderBottom: '1px solid #555'
     },
     // 작성하기 버튼
     writeBtnBox:{
@@ -29,8 +29,8 @@ const styles = {
     },
     // 게시글 목록
     listBox:{
-        width: "100%",
-        height: "360px",
+        width: '100%',
+        height: '360px',
         overflowX: 'auto',
         overflowY: 'hidden',
         marginBottom: '20px',
@@ -38,12 +38,12 @@ const styles = {
         flexDirection: 'column',
     },
     listTitle:{
-        width: "100%",
-        height: "50px",
-        fontSize: "30px",
-        lineHeight: "50px",
-        fontWeight: "bold",
-        color: "#333"
+        width: '100%',
+        height: '50px',
+        fontSize: '30px',
+        lineHeight: '50px',
+        fontWeight: 'bold',
+        color: '#333'
     },
     listArr:{
         display: 'flex',
@@ -102,7 +102,7 @@ const styles = {
 
     // 게시글 모달
     modalContainer: {
-        position: 'fixed',
+        position: 'absolute',
         top: 0,
         left: 0,
         width: '100%',
@@ -112,13 +112,13 @@ const styles = {
         justifyContent: 'center',
         alignItems: 'center',
         border: 'none',
-        zIndex: 1000,
     },
     modalBox: {
+        position: 'relative',
         backgroundColor: 'white',
         borderRadius: '15px',  // 둥근 모서리
         width: '500px',
-        height: '550px',
+        height: '600px',
         padding: '20px',
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',  // 그림자 추가
         display: 'flex',
@@ -143,19 +143,20 @@ const styles = {
     },
     modalOption:{
         marginBottom: '20px',
+        width: '100%',
         display: 'flex',
         justifyContent: 'space-around',
     },
     modalContent:{
         fontSize: '16px',
-        marginBottom: '20px',
+        marginBottom: '30px',
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
     },
     modalContentInput:{
         width: '100%',
-        minHeight: '300px',
+        height: '300px',
         padding: '10px',
         fontSize: '16px',
         resize: 'none',
@@ -167,6 +168,10 @@ const styles = {
         overflowWrap: 'break-word',
     },
     modalBtnContainer:{
+        position: 'absolute',
+        bottom: '10px',
+        right: '20px',
+        width: '90%',
         display: 'flex',
         justifyContent: 'flex-end',
         gap: '10px',
