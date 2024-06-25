@@ -118,6 +118,7 @@ const styles = {
         backgroundColor: 'white',
         borderRadius: '15px',  // 둥근 모서리
         width: '500px',
+        height: '550px',
         padding: '20px',
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',  // 그림자 추가
         display: 'flex',
