@@ -334,7 +334,7 @@ function PostModal(props) {
                         {buttonOutput}
                     </div>
                 </div>
-                {partsOn ? partsModal : viewModal}
+                {partsOn && partsModal}
             </dialog>
         </>
 
