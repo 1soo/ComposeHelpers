@@ -17,7 +17,7 @@ function PostList(props) {
     // postId값 초기화
     useEffect(()=>{
         let postList = JSON.parse(localStorage.getItem('postList'));
-        if(postList != null && postList.length != 0){
+        if(postList !== null && postList.length !== 0){
             let postArray = JSON.parse(localStorage.getItem('postList'));
             setPostId(postArray[postArray.length-1].postId + 1);
         }else{
