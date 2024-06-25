@@ -118,41 +118,48 @@ const styles = {
         backgroundColor: 'white',
         borderRadius: '15px',  // 둥근 모서리
         width: '500px',
-        height: '600px',
+        height: '650px',
         padding: '20px',
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',  // 그림자 추가
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'stretch',
-        position: 'relative',
     },
     modalTitle:{
         fontSize: '20px',
         fontWeight: 'bold',
-        marginBottom: '20px',
+        marginBottom: '5px',
         textAlign: 'center',
     },
     modalTitleInput:{
         width: '100%',
         padding: '10px',
         fontSize: '16px',
-        marginBottom: '10px',
+        marginBottom: '5px',
         border: '1px solid #ced4da',
         borderRadius: '5px',
         boxSizing: 'border-box',
     },
     modalOption:{
-        marginBottom: '20px',
+        marginBottom: '10px',
         width: '100%',
         display: 'flex',
         justifyContent: 'space-around',
     },
     modalContent:{
+        width: '100%',
+        height: '300px',
+        marginBottom: '10px',
         fontSize: '16px',
-        marginBottom: '30px',
-        flex: 1,
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'row',
+        resize: 'none',
+        border: '1px solid #ced4da',
+        borderRadius: '5px',
+        boxSizing: 'border-box',
+        wordWrap: 'break-word',
+        overflowWrap: 'break-word',
+        borderCollapse: 'collapse'
     },
     modalContentInput:{
         width: '100%',
@@ -160,12 +167,15 @@ const styles = {
         padding: '10px',
         fontSize: '16px',
         resize: 'none',
-        border: '1px solid #ced4da',
         borderRadius: '5px',
-        flex: 1,
         boxSizing: 'border-box',
         wordWrap: 'break-word',
         overflowWrap: 'break-word',
+    },
+    modalReplyContainer:{
+        width: '100%',
+        height: '220px',
+        border: '1px solid #000',
     },
     modalBtnContainer:{
         position: 'absolute',
@@ -229,6 +239,48 @@ const styles = {
         padding: '10px 20px',
         cursor: 'pointer',
         transition: 'background-color 0.3s ease',
+    },
+
+    modalPartsBtn: {
+        backgroundColor: 'rgb(51,51,51)',
+        color: 'white',
+        width: '30px',
+        height: '300px',
+    },
+
+    partsList: {
+        listStyle: 'none',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
+    },
+
+    partsModal: {
+        backgroundColor: '#CF9FFF',
+        borderRadius: '15px',
+        marginLeft: '10px',
+        width: '200px',
+        height: '590px',
+        textAlign: 'center'
+    },
+
+    partBtn: {
+        backgroundColor: 'transparent',
+        width: '150px',
+        height: '50px',
+        margin: '5px 0',
+        borderRadius: '15px',
+    },
+
+    buttonContainer: {
+        marginTop: '100px'
+    },
+
+    closeInfoBtn: {
+        backgroundColor: 'white',
+        borderRadius: '15px',
+        width: '100px',
+        height: '50px'
     }
 }
 
