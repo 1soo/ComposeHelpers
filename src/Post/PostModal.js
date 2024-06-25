@@ -262,6 +262,9 @@ function PostModal(props){
                             부품 정보
                         </button>
                     </div>
+                    <div style={styles.modalReplyContainer}>
+
+                    </div>
                     <div style={styles.modalBtnContainer}>
                         {buttonOutput}
                     </div>
