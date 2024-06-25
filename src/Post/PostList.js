@@ -5,21 +5,21 @@ import PostModal from "./PostModal";
 
 function PostList(props) {
     const [modalOn, setModalOn] = useState(false);
-    const [postId, setPostId] = useState(0);
+    const [nextPostId, setNextPostId] = useState(0);
     // 게시글 배열
     const [recmArr, setRecmArr] = useState([]);
     const [askArr, setAskArr] = useState([]);
     // 작성 모달 or 수정 모달 판단 변수
     const [isCreate, setIsCreate] = useState(false);
     // 아이템 클릭시 모달에 띄울 게시글아이템
-    const [postItem, setPostItem] = useState();
+    const [postId, setPostId] = useState();
 
     // postId값 초기화
     useEffect(()=>{
         let postList = JSON.parse(localStorage.getItem('postList'));
         if(postList !== null && postList.length !== 0){
             let postArray = JSON.parse(localStorage.getItem('postList'));
-            setPostId(postArray[postArray.length-1].postId + 1);
+            setNextPostId(postArray[postArray.length-1].postId + 1);
         }else{
             localStorage.clear();
         }
@@ -28,11 +28,12 @@ function PostList(props) {
     // 모달 활성화 여부
     let ModalHandler = useCallback((event) => {
         setModalOn(modalOn => !modalOn);
+        setPostId();
     }, []);
 
     // 작성 버튼 핸들러
     function WriteBtnHandler(event) {
-        setPostItem();
+        setPostId();
         setIsCreate(true);
         setModalOn(true);
     }
@@ -43,12 +44,13 @@ function PostList(props) {
         if (localStorage.getItem('postList')) {
             postArray = JSON.parse(localStorage.getItem('postList'));
         }
-        listItem.postId = postId;
+        listItem.postId = nextPostId;
         listItem.date = getDate();
         postArray.push(listItem);
         localStorage.setItem('postList', JSON.stringify(postArray));
 
-        setPostId(postId + 1);
+        setNextPostId(postId + 1);
+        setPostId();
         setModalOn(false);
     }
 
@@ -88,12 +90,13 @@ function PostList(props) {
                 }
             })
         }
+        setPostId();
         setModalOn(false);
     }
 
     // 아이템 클릭 핸들러
-    function ItemClickHandler(listItem) {
-        setPostItem(listItem);
+    function ItemClickHandler(itemId) {
+        setPostId(itemId);
         setIsCreate(false);
         setModalOn(true);
     }
@@ -140,7 +143,7 @@ function PostList(props) {
                     })}
                 </div>
             </div>
-            {modalOn && <PostModal modalHandler={ModalHandler} item={postItem} isCreate={isCreate} BtnHandlerSet={BtnHandlerSet} />}
+            {modalOn && <PostModal modalHandler={ModalHandler} postId={postId} isCreate={isCreate} BtnHandlerSet={BtnHandlerSet} />}
         </div>
     )
 }

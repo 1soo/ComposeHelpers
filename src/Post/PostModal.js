@@ -4,6 +4,8 @@ import styles from "./styles";
 function PostModal(props){
     // 수정 중인지 여부
     const [EditProcess, setEditProcess] = useState(false);
+    // 게시글 아이템
+    const [postItem, setPostItem] = useState();
     // 게시글 아이템 데이터
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
@@ -23,12 +25,8 @@ function PostModal(props){
     useEffect(()=>{
         modalRef.current.showModal();
         // 아이템 클릭 시
-        if (props.item) {
-            setTitle(props.item.title);
-            setDate(props.item.date);
-            setContent(props.item.content);
-            setIsAsk(props.item.isAsk);
-            setIsComplete(props.item.isComplete);
+        if (props.postId !== null) {
+            setPostItem(JSON.parse(localStorage.getItem('postList')).filter((post)=>post.postId === props.postId)[0]);
         }
         // 작성 버튼 클릭 시
         else {
@@ -43,11 +41,21 @@ function PostModal(props){
         })
     }, [])
 
+    // postItem 설정하면 해당 데이터들 반영
+    useEffect(()=>{
+        if(postItem){
+            setTitle(postItem.title);
+            setDate(postItem.date);
+            setContent(postItem.content);
+            setIsAsk(postItem.isAsk);
+            setIsComplete(postItem.isComplete);
+        }
+    }, [postItem]);
+
     // 등록 버튼 핸들러
     // div 안에 input 태그, 라디오 태그를 사용해서 입력값 받기
     // postId를 제외한 값을 객체로 저장해서 PostList.js의 CreateHandler 호출
     function EntryHandler(event) {
-
         if (!title.trim() || !content.trim()) {
             alert("제목과 내용을 모두 입력하세요.");
             return;
@@ -79,12 +87,12 @@ function PostModal(props){
         }
 
         let editItem = {
-            postId: props.item.postId,
+            postId: postItem.postId,
             title: title,
             date: date,
             content: content,
-            isAsk: props.item.isAsk,
-            isComplete: props.item.isComplete
+            isAsk: postItem.isAsk,
+            isComplete: postItem.isComplete
         }
         props.BtnHandlerSet.editHandler(editItem);
         setEditProcess(false);
@@ -97,7 +105,7 @@ function PostModal(props){
 
     // 삭제 버튼 핸들러
     function DeleteHandler(event) {
-        props.BtnHandlerSet.deleteHandler(props.item.postId);
+        props.BtnHandlerSet.deleteHandler(postItem.postId);
     }
 
     //해결 버튼 핸들러
@@ -105,7 +113,7 @@ function PostModal(props){
         setIsComplete((prevIsComplete) => {
             const newIsComplete = !prevIsComplete;
             let editItem = {
-                postId: props.item.postId,
+                postId: postItem.postId,
                 title: title,
                 date: date,
                 content: content,
@@ -238,41 +246,38 @@ function PostModal(props){
 
 
     return (
-        <>
-            <dialog ref={modalRef} style={styles.modalContainer}>
-                <div style={styles.modalBox}>
-                    <div id="itemTitle" style={styles.modalTitle}>
-                        {titleOutput}
-                    </div>
-                    {!isCreate && (
-                        <div style={styles.modalDate}>
-                            작성일: {date}
-                        </div>
-                    )}
-                    {isAskOutput && (
-                        <div style={styles.modalOption}>
-                            {isAskOutput}
-                        </div>
-                    )}
-                    <div id="itemContent" style={styles.modalContent}>
-                        <div style={{ width: '470px' }}>
-                            {contentOutput}
-                        </div>
-                        <button id="modalPartsBtn" style={styles.modalPartsBtn} onClick={PartOpenHandler}>
-                            부품 정보
-                        </button>
-                    </div>
-                    <div style={styles.modalReplyContainer}>
-
-                    </div>
-                    <div style={styles.modalBtnContainer}>
-                        {buttonOutput}
-                    </div>
+        <dialog ref={modalRef} style={styles.modalContainer}>
+            <div style={styles.modalBox}>
+                <div id="itemTitle" style={styles.modalTitle}>
+                    {titleOutput}
                 </div>
-                {partsOn && partsModal}
-            </dialog>
-        </>
+                {(!isCreate && !EditProcess) && (
+                    <div style={styles.modalDate}>
+                        작성일: {date}
+                    </div>
+                )}
+                {isAskOutput && (
+                    <div style={styles.modalOption}>
+                        {isAskOutput}
+                    </div>
+                )}
+                <div id="itemContent" style={styles.modalContent}>
+                    <div style={{ width: '470px' }}>
+                        {contentOutput}
+                    </div>
+                    <button id="modalPartsBtn" style={styles.modalPartsBtn} onClick={PartOpenHandler}>
+                        부품 정보
+                    </button>
+                </div>
+                <div style={styles.modalReplyContainer}>
 
+                </div>
+                <div style={styles.modalBtnContainer}>
+                    {buttonOutput}
+                </div>
+            </div>
+            {partsOn && partsModal}
+        </dialog>
     )
 }
 

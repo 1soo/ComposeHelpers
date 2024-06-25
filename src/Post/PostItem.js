@@ -11,7 +11,7 @@ function PostItem(props){
 
     // 아이템 클릭 핸들러
     function onClickHandler(event){
-        props.clickFunc(item);
+        props.clickFunc(item.postId);
     }
 
     return(
