@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles";
+import Parts from "../Parts/Parts";
 
 function PostModal(props) {
     // 수정 중인지 여부
@@ -13,7 +14,7 @@ function PostModal(props) {
     const [isComplete, setIsComplete] = useState(false);
     const [date, setDate] = useState("");
 
-    // 부품 정보 창
+    // 부품 정보 창 활성화 여부
     const [partsOn, setPartsOn] = useState(false);
 
     // 생성 버튼인지 게시글 클릭인지 여부
@@ -57,8 +58,6 @@ function PostModal(props) {
     }, [postItem]);
 
     // 등록 버튼 핸들러
-    // div 안에 input 태그, 라디오 태그를 사용해서 입력값 받기
-    // postId를 제외한 값을 객체로 저장해서 PostList.js의 CreateHandler 호출
     function EntryHandler(event) {
         if (!title.trim() || !content.trim()) {
             alert("제목과 내용을 모두 입력하세요.");
@@ -77,7 +76,6 @@ function PostModal(props) {
     }
 
     // 수정 버튼 핸들러
-    // 수정 버튼 클릭 시 div 안은 input 태그로 바뀌어야하고, value는 받아온 item의 각 해당하는 값이 된다.
     function EditHandler(event) {
         setEditProcess(true)
     }
@@ -169,107 +167,6 @@ function PostModal(props) {
             </>
     }
 
-    let partsModal =
-        <div id="partsModal" style={styles.partsModal}>
-            <h3>부품 정보</h3>
-
-            <div className="partsList" style={styles.partsList}>
-                <div className="partsBox" style={styles.partsBox}>
-                    <label style={styles.partsLabel}>
-                        <span style={styles.partsTitle}>CPU</span>
-                        <input type="text" style={styles.partsText} />
-                    </label>
-                </div>
-
-                <div className="partsBox" style={styles.partsBox}>
-                    <label style={styles.partsLabel}>
-                        <span style={styles.partsTitle}>그래픽카드</span>
-                        <input type="text" style={styles.partsText} />
-                    </label>
-                </div>
-
-                <div className="partsBox" style={styles.partsBox}>
-                    <label style={styles.partsLabel}>
-                        <span style={styles.partsTitle}>메인보드</span>
-                        <input type="text" style={styles.partsText} />
-                    </label>
-                </div>
-
-                <div className="partsBox" style={styles.partsBox}>
-                    <label style={styles.partsLabel}>
-                        <span style={styles.partsTitle}>메모리</span>
-                        <input type="text" style={styles.partsText} />
-                    </label >
-                </div>
-
-                <div className="partsBox" style={styles.partsBox}>
-                    <label style={styles.partsLabel}>
-                        <span style={styles.partsTitle}>파워</span>
-                        <input type="text" style={styles.partsText} />
-                    </label>
-                </div>
-
-                <div className="partsBox" style={styles.partsBox}>
-                    <label style={styles.partsLabel}>
-                        <span style={styles.partsTitle}>쿨러</span>
-                        <input type="text" style={styles.partsText} />
-                    </label>
-                </div>
-            </div>
-
-            <div className="buttonContainer" style={styles.buttonContainer}>
-                <button className="closeInfoBtn" style={styles.closeInfoBtn} onClick={PartCloseHandler}>정보 접기</button>
-            </div>
-        </div>
-
-    let viewModal =
-        <div id="partsModal" style={styles.partsModal}>
-            <h3>부품 정보</h3>
-
-            <div className="partsList" style={styles.partsList}>
-                <div className="partsBox" style={styles.partsBox}>
-                    <label style={styles.partsLabel}>
-                        <span style={styles.partsTitle}>CPU</span>
-                    </label>
-                </div>
-
-                <div className="partsBox" style={styles.partsBox}>
-                    <label style={styles.partsLabel}>
-                        <span style={styles.partsTitle}>그래픽카드</span>
-                    </label>
-                </div>
-
-                <div className="partsBox" style={styles.partsBox}>
-                    <label style={styles.partsLabel}>
-                        <span style={styles.partsTitle}>메인보드</span>
-                    </label>
-                </div>
-
-                <div className="partsBox" style={styles.partsBox}>
-                    <label style={styles.partsLabel}>
-                        <span style={styles.partsTitle}>메모리</span>
-                    </label >
-                </div>
-
-                <div className="partsBox" style={styles.partsBox}>
-                    <label style={styles.partsLabel}>
-                        <span style={styles.partsTitle}>파워</span>
-                    </label>
-                </div>
-
-                <div className="partsBox" style={styles.partsBox}>
-                    <label style={styles.partsLabel}>
-                        <span style={styles.partsTitle}>쿨러</span>
-                    </label>
-                </div>
-            </div>
-
-            <div className="buttonContainer" style={styles.buttonContainer}>
-                <button className="closeInfoBtn" style={styles.closeInfoBtn} onClick={PartCloseHandler}>정보 접기</button>
-            </div>
-        </div>
-
-
     // 제목, 내용, 문의/추천 여부
     let titleOutput, isAskOutput, contentOutput, dateOutput, partsOutput;
     if (isCreate || EditProcess) {
@@ -309,14 +206,12 @@ function PostModal(props) {
             placeholder="내용을 입력하세요"
             style={styles.modalContentInput} />;
         
-        partsOutput = partsModal;
     } else {
         titleOutput = title;
         contentOutput = content;
         dateOutput = <div style={styles.modalDate}>
                         작성일: {date}
                     </div>;
-        partsOutput = viewModal;
     }
 
 
@@ -343,7 +238,7 @@ function PostModal(props) {
                     {buttonOutput}
                 </div>
             </div>
-            {partsOn && partsOutput}
+            {partsOn && <Parts EditOrCreate={isCreate || EditProcess} partCloseHandler={PartCloseHandler} />}
         </dialog>
     )
 }

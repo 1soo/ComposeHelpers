@@ -5,13 +5,14 @@ import PostModal from "./PostModal";
 
 function PostList(props) {
     const [modalOn, setModalOn] = useState(false);
+    // 다음에 저장할 게시글 아이템 id
     const [nextPostId, setNextPostId] = useState(0);
     // 게시글 배열
     const [recmArr, setRecmArr] = useState([]);
     const [askArr, setAskArr] = useState([]);
     // 작성 모달 or 수정 모달 판단 변수
     const [isCreate, setIsCreate] = useState(false);
-    // 아이템 클릭시 모달에 띄울 게시글아이템
+    // 아이템 클릭시 모달에 띄울 게시글아이템 id
     const [postId, setPostId] = useState();
 
     // postId값 초기화
@@ -50,7 +51,6 @@ function PostList(props) {
         localStorage.setItem('postList', JSON.stringify(postArray));
 
         setNextPostId(postId + 1);
-        setPostId();
         setModalOn(false);
     }
 
