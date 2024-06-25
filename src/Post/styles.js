@@ -263,10 +263,7 @@ const styles = {
     },
 
     partsList: {
-        listStyle: 'none',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center'
+        margin: "80px 0"
     },
 
     partsModal: {
@@ -274,16 +271,25 @@ const styles = {
         borderRadius: '15px',
         marginLeft: '10px',
         width: '200px',
-        height: '590px',
+        height: '690px',
         textAlign: 'center'
     },
 
-    partBtn: {
+    partsLabel: {
+        display: "flex"
+    },
+
+    partsBox: {
+        margin: "15px 0"
+    },
+
+    partsText: {
         backgroundColor: 'transparent',
-        width: '150px',
-        height: '50px',
-        margin: '5px 0',
+        width: '100px',
+        height: '25px',
         borderRadius: '15px',
+        marginLeft: "auto"
+
     },
     buttonContainer: {
         marginTop: '100px'
@@ -293,7 +299,12 @@ const styles = {
         backgroundColor: 'white',
         borderRadius: '15px',
         width: '100px',
-        height: '50px'
+        height: '50px',
+        marginTop: "130px"
+    },
+
+    partsTitle: {
+        marginLeft: "5px"
     }
 }
 
