@@ -151,7 +151,7 @@ const styles = {
         marginBottom: '20px',
         flex: 1,
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'row',
     },
     modalContentInput:{
         width: '100%',
@@ -224,6 +224,47 @@ const styles = {
         padding: '10px 20px',
         cursor: 'pointer',
         transition: 'background-color 0.3s ease',
+    },
+
+    modalPartsBtn: {
+        backgroundColor: "rgb(51,51,51)",
+        color: "white",
+        width: "50px"
+    },
+
+    partsList: {
+        listStyle: "none",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center"
+    },
+
+    partsModal: {
+        backgroundColor: "#CF9FFF",
+        borderRadius: "15px",
+        marginLeft: "10px",
+        width: "200px",
+        height: "590px",
+        textAlign: "center"
+    },
+
+    partBtn: {
+        backgroundColor: "transparent",
+        width: "150px",
+        height: "50px",
+        margin: "5px 0",
+        borderRadius: "15px",
+    },
+
+    buttonContainer: {
+        marginTop: "100px"
+    },
+
+    closeInfoBtn: {
+        backgroundColor: "white",
+        borderRadius: "15px",
+        width: "100px",
+        height: "50px"
     }
 }
 
