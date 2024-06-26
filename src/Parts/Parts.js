@@ -47,6 +47,7 @@ function Parts(props){
             return;
         }
         let partObj = {
+            partId: 0,
             cpu: cpu,
             gpCard: gpCard,
             mainBoard: mainBoard,
