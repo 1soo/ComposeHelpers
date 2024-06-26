@@ -174,6 +174,11 @@ function PostModal(props) {
             postArray.forEach((post, index) => {
                 if (postItem.postId === post.postId) {
                     localStorage.setItem("postList", JSON.stringify(postArray.filter((postValue) => postValue !== postArray[index])));
+                    
+                    // 댓글 삭제
+                    let allCommentList = JSON.parse(localStorage.getItem('commentList')) || [];
+                    allCommentList = allCommentList.filter(comment => comment.postId !== postItem.postId);
+                    localStorage.setItem('commentList', JSON.stringify(allCommentList));
                 }
             })
         }
@@ -278,7 +283,9 @@ function PostModal(props) {
                         작성일: {date}
                     </div>;
         commentOutput = <div style={styles.modalReplyContainer}>
-                        <CommentList postId={props.postId}/>
+                        <CommentList 
+                            postId={props.postId}
+                        />
                     </div>
     }
 
