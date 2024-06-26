@@ -189,7 +189,7 @@ const styles = {
     modalReplyContainer:{
         width: '100%',
         height: '220px',
-        border: '1px solid #000',
+        border: 'none',
     },
     modalBtnContainer:{
         position: 'absolute',
@@ -305,6 +305,38 @@ const styles = {
 
     partsTitle: {
         marginLeft: "5px"
+    },
+    modalReplyListContainer:{
+        width: '100%',
+        height: '150px',
+        overflowY: 'auto',        
+    },
+    modalReplyInputContainer:{
+        position: 'relative',
+        width: '100%',
+        height: '70px'    
+    },
+    modalReplyInput:{
+        width: '470px',
+        height: '70px',
+        resize: 'none',
+        padding: '0px',
+        border: 'none',
+        border: '1px solid #ced4da',
+        borderRadius: '5px',
+    },
+    modalReplyInputBtn:{
+        position: 'absolute',
+        right: '0px',
+        width: '30px',
+        height: '70px',
+        resize: 'none',
+        padding: '0px',
+        border: '1px solid #00AE68',
+        borderRadius: '5px',
+        color: 'white',
+        backgroundColor: '#00AE68',
+        fontWeight: 'bold'
     },
 
     completeOutPut: {

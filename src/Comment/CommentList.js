@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CommentItem from './CommentItem';
+import styles from "../Post/styles"
 
 function CommentList(props) {
     const [commentId, setCommentId] = useState(0);
@@ -24,14 +25,14 @@ function CommentList(props) {
 
         let commentItem = {
             commentId: commentId,
-            postId: postId,
+            postId: props.postId,
             text: text,
             date: getDate()
         };
 
         let commentArray = [...comments, commentItem];
         setComments(commentArray);
-        localStorage.setItem(postId, JSON.stringify(commentArray));  // 게시글 ID를 키로 사용
+        localStorage.setItem(props.postId, JSON.stringify(commentArray));  // 게시글 ID를 키로 사용
         setCommentId(commentId + 1);
         setText("");  // 댓글 작성 후 입력 필드 초기화
     };
@@ -68,24 +69,24 @@ function CommentList(props) {
 
     return(
         <>
-            <div>
+            <div style={styles.modalReplyListContainer}>
                 {comments.map((comment) => (
                     <CommentItem 
                         key={comment.commentId} 
                         comment={comment} 
-                        onEdit={EditCommentHandler} 
-                        onDelete={DeleteCommentHandler} 
+                        onEdit={EditCommentHandler}
+                        onDelete={DeleteCommentHandler}
                     />
                 ))}
             </div>
-            <div>
-                <input 
-                    type="text" 
+            <div style={styles.modalReplyInputContainer}>
+                <textarea 
                     placeholder="댓글을 입력하세요"
                     value={text}
                     onChange={(e) => setText(e.target.value)} 
+                    style={styles.modalReplyInput}
                 />
-                <button onClick={CreateHandler}>
+                <button style={styles.modalReplyInputBtn} onClick={CreateHandler}>
                     댓글 작성
                 </button>
             </div>
