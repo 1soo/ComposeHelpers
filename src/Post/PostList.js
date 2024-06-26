@@ -13,11 +13,6 @@ function PostList(props) {
     // 아이템 클릭시 모달에 띄울 게시글아이템 id
     const [postId, setPostId] = useState();
 
-    // 저장할 postId값 초기화
-    useEffect(()=>{
-        
-    }, []);
-
     // 모달 활성화 여부
     let ModalHandler = useCallback((event) => {
         setModalOn(modalOn => !modalOn);

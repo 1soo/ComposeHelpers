@@ -115,12 +115,14 @@ function PostModal(props) {
 
         // 부품 정보 저장
         let partsList = [];
+        let createPartObj = partObj;
+        createPartObj.postId = nextPostId;
 
         if(localStorage.getItem("partsList")) {
             partsList = JSON.parse(localStorage.getItem("partsList"));
         }
 
-        partsList.push(partObj);
+        partsList.push(createPartObj);
         localStorage.setItem("partsList", JSON.stringify(partsList));
         props.modalHandler();
     }
@@ -155,6 +157,21 @@ function PostModal(props) {
                 }
             });
             localStorage.setItem('postList', JSON.stringify(postArray));
+        }
+
+        if(partObj){
+            let partsArray = [];
+            let editPartObj = partObj;
+            editPartObj.postId = editItem.postId;
+            if(localStorage.getItem('partsList')){
+                partsArray = JSON.parse(localStorage.getItem('partsList'));
+                partsArray.forEach((part, index) => {
+                    if(part.postId === editItem.postId){
+                        partsArray[index] = editPartObj;
+                    }
+                });
+                localStorage.setItem('partsList', JSON.stringify(partsArray));
+            }
         }
         setEditProcess(false);
     }
@@ -193,7 +210,6 @@ function PostModal(props) {
 
     // 부품 정보 저장 핸들러
     function PartInputSaveHandler(parts){
-        parts.postId = nextPostId;
         setPartObj(parts);
         setPartsOn(false);
     }
