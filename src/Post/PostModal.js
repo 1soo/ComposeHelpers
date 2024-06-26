@@ -178,6 +178,12 @@ function PostModal(props) {
             partsArray = JSON.parse(localStorage.getItem('partsList'));
             localStorage.setItem('partsList', JSON.stringify(partsArray.filter((partValue) => partValue.postId !== postItem.postId)));
         }
+
+        // 댓글 삭제
+        let allCommentList = JSON.parse(localStorage.getItem('commentList')) || [];
+        allCommentList = allCommentList.filter(comment => comment.postId !== postItem.postId);
+        localStorage.setItem('commentList', JSON.stringify(allCommentList));
+
         props.modalHandler();
     }
 
