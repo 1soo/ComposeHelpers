@@ -3,7 +3,6 @@ import styles from "../Post/styles";
 
 function Parts(props){
 
-
     return(
         <div id="partsModal" style={styles.partsModal}>
             <h3>부품 정보</h3>
