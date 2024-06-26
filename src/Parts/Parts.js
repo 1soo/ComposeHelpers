@@ -83,7 +83,7 @@ function Parts(props){
 
             <div className="buttonContainer" style={styles.buttonContainer}>
                 <button className="closeInfoBtn" style={styles.closeInfoBtn} onClick={props.partCloseHandler} >정보 접기</button>
-                {props.EditOrCreate === true ? props.completeBtn : null}
+                {props.EditOrCreate && props.completeBtn}
             </div>
         </div>
     )
