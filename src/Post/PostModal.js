@@ -21,7 +21,7 @@ function PostModal(props) {
     const [partsOn, setPartsOn] = useState(false);
 
     // 부품 정보 저장
-    const [partObj, setPartObj] = useState({});
+    const [partObj, setPartObj] = useState();
 
     // 생성 버튼인지 게시글 클릭인지 여부
     const isCreate = props.isCreate;
@@ -89,7 +89,12 @@ function PostModal(props) {
             alert("제목과 내용을 모두 입력하세요.");
             return;
         }
+        if(!partObj){
+            alert('부품 정보를 모두입력하세요!');
+            return;
+        }
 
+        // 게시글 저장
         let listItem = {
             postId: nextPostId,
             title: title,
@@ -108,20 +113,15 @@ function PostModal(props) {
         localStorage.setItem('postList', JSON.stringify(postList));
         setNextPostId(nextPostId + 1);
 
+        // 부품 정보 저장
         let partsList = [];
-
-        if(localStorage.getItem("partsList") === null) {
-            localStorage.setItem("partsList", JSON.stringify(partsList));
-        }
 
         if(localStorage.getItem("partsList")) {
             partsList = JSON.parse(localStorage.getItem("partsList"));
-
-            partsList.push(partObj);
-
-            localStorage.setItem("partsList", JSON.stringify(partsList));
         }
 
+        partsList.push(partObj);
+        localStorage.setItem("partsList", JSON.stringify(partsList));
         props.modalHandler();
     }
 
@@ -187,13 +187,9 @@ function PostModal(props) {
 
     // 부품 정보 저장 핸들러
     function PartInputSaveHandler(parts){
-        console.log(`partsId: ${parts.partId}`);
-
-        parts.partId = nextPostId;
-
+        parts.postId = nextPostId;
         setPartObj(parts);
-
-        console.log(partObj);
+        setPartsOn(false);
     }
 
     // 버튼 종류
@@ -301,7 +297,7 @@ function PostModal(props) {
                     {buttonOutput}
                 </div>
             </div>
-            {partsOn && <Parts EditOrCreate={isCreate || EditProcess} partCloseHandler={PartCloseHandler} PartInputSaveHandler={PartInputSaveHandler}/>}
+            {partsOn && <Parts EditOrCreate={isCreate || EditProcess} postId={props.postId} partCloseHandler={PartCloseHandler} PartInputSaveHandler={PartInputSaveHandler}/>}
         </dialog>
     )
 }

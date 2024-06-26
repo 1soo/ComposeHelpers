@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../Post/styles";
 
 function Parts(props){
@@ -10,6 +10,22 @@ function Parts(props){
     const [memory, setMemory] = useState("");
     const [power, setPower] = useState("");
     const [cooler, setCooler] = useState("");
+    
+    // 부품 변수 값 가져오기
+    useEffect(()=>{
+        if(!props.EditOrCreate){
+            let partsArray = JSON.parse(localStorage.getItem('partsList')) || [];
+            if(partsArray.length !== 0){
+                let nowParts = partsArray.filter((part) => part.postId === props.postId)[0];
+                setCpu(nowParts.cpu);
+                setGpCard(nowParts.gpCard);
+                setMainBoard(nowParts.mainBoard);
+                setMemory(nowParts.memory);
+                setPower(nowParts.power);
+                setCooler(nowParts.cooler);
+            }
+        }
+    }, []);
 
     // 부품 인풋 change 핸들러
     function PartInputChangeHandler(event){
@@ -47,7 +63,7 @@ function Parts(props){
             return;
         }
         let partObj = {
-            partId: 0,
+            postId: 0,
             cpu: cpu,
             gpCard: gpCard,
             mainBoard: mainBoard,
@@ -66,7 +82,11 @@ function Parts(props){
                 <div className="partsBox" style={styles.partsBox}>
                     <label style={styles.partsLabel}>
                         <span style={styles.partsTitle}>CPU</span>
-                        {props.EditOrCreate && <input type="text" id="cpu" style={styles.partsText} value={cpu} onChange={PartInputChangeHandler}/>}
+                        {props.EditOrCreate 
+                        ?
+                         <input type="text" id="cpu" style={styles.partsText} value={cpu} onChange={PartInputChangeHandler}/>
+                        :
+                        <div>{cpu}</div>}
                     </label>
                 </div>
 
