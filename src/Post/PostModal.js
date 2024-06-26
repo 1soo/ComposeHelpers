@@ -167,6 +167,8 @@ function PostModal(props) {
             </>
     }
 
+    let completeOutPut = <button id="inputCompleteBtn" style={styles.completeOutPut}>입력 완료</button>
+
     // 제목, 내용, 문의/추천 여부
     let titleOutput, isAskOutput, contentOutput, dateOutput, partsOutput;
     if (isCreate || EditProcess) {
@@ -238,7 +240,7 @@ function PostModal(props) {
                     {buttonOutput}
                 </div>
             </div>
-            {partsOn && <Parts EditOrCreate={isCreate || EditProcess} partCloseHandler={PartCloseHandler} />}
+            {partsOn && <Parts EditOrCreate={isCreate || EditProcess} partCloseHandler={PartCloseHandler} completeBtn={completeOutPut}/>}
         </dialog>
     )
 }
