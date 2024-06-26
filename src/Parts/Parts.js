@@ -82,42 +82,42 @@ function Parts(props){
                 <div className="partsBox" style={styles.partsBox}>
                     <label style={styles.partsLabel}>
                         <span style={styles.partsTitle}>CPU</span>
-                        {props.EditOrCreate && <input type="text" id="cpu" style={styles.partsText} value={cpu} onChange={PartInputChangeHandler} disabled={!props.EditOrCreate}/>}
+                        <input type="text" id="cpu" style={styles.partsText} value={cpu} onChange={PartInputChangeHandler} disabled={!props.EditOrCreate}/>
                     </label>
                 </div>
 
                 <div className="partsBox" style={styles.partsBox}>
                     <label style={styles.partsLabel}>
                         <span style={styles.partsTitle}>그래픽카드</span>
-                        {props.EditOrCreate && <input type="text" id="gpCard" style={styles.partsText} value={gpCard} onChange={PartInputChangeHandler} disabled={!props.EditOrCreate}/>}
+                        <input type="text" id="gpCard" style={styles.partsText} value={gpCard} onChange={PartInputChangeHandler} disabled={!props.EditOrCreate}/>
                     </label>
                 </div>
 
                 <div className="partsBox" style={styles.partsBox}>
                     <label style={styles.partsLabel}>
                         <span style={styles.partsTitle}>메인보드</span>
-                        {props.EditOrCreate && <input type="text" id="mainBoard" style={styles.partsText} value={mainBoard} onChange={PartInputChangeHandler} disabled={!props.EditOrCreate}/>}
+                        <input type="text" id="mainBoard" style={styles.partsText} value={mainBoard} onChange={PartInputChangeHandler} disabled={!props.EditOrCreate}/>
                     </label>
                 </div>
 
                 <div className="partsBox" style={styles.partsBox}>
                     <label style={styles.partsLabel}>
                         <span style={styles.partsTitle}>메모리</span>
-                        {props.EditOrCreate && <input type="text" id="memory" style={styles.partsText} value={memory} onChange={PartInputChangeHandler} disabled={!props.EditOrCreate}/>}
+                        <input type="text" id="memory" style={styles.partsText} value={memory} onChange={PartInputChangeHandler} disabled={!props.EditOrCreate}/>
                     </label >
                 </div>
 
                 <div className="partsBox" style={styles.partsBox}>
                     <label style={styles.partsLabel}>
                         <span style={styles.partsTitle}>파워</span>
-                        {props.EditOrCreate && <input type="text" id="power" style={styles.partsText} value={power} onChange={PartInputChangeHandler} disabled={!props.EditOrCreate}/>}
+                        <input type="text" id="power" style={styles.partsText} value={power} onChange={PartInputChangeHandler} disabled={!props.EditOrCreate}/>
                     </label>
                 </div>
 
                 <div className="partsBox" style={styles.partsBox}>
                     <label style={styles.partsLabel}>
                         <span style={styles.partsTitle}>쿨러</span>
-                        {props.EditOrCreate && <input type="text" id="cooler" style={styles.partsText} value={cooler} onChange={PartInputChangeHandler} disabled={!props.EditOrCreate}/>}
+                       <input type="text" id="cooler" style={styles.partsText} value={cooler} onChange={PartInputChangeHandler} disabled={!props.EditOrCreate}/>
                     </label>
                 </div>
             </div>
