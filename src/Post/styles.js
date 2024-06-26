@@ -263,7 +263,7 @@ const styles = {
     },
 
     partsList: {
-        margin: "80px 0"
+        margin: "30px 0"
     },
 
     partsModal: {
@@ -276,7 +276,6 @@ const styles = {
     },
 
     partsLabel: {
-        display: "flex"
     },
 
     partsBox: {
@@ -285,10 +284,12 @@ const styles = {
 
     partsText: {
         backgroundColor: 'transparent',
-        width: '100px',
+        width: '150px',
         height: '25px',
         borderRadius: '15px',
-        marginLeft: "auto"
+        marginTop: "5px",
+        marginBottom: "5px",
+        textAlign: "center"
 
     },
     buttonContainer: {
@@ -300,11 +301,11 @@ const styles = {
         borderRadius: '15px',
         width: '100px',
         height: '50px',
-        marginTop: "130px"
     },
 
     partsTitle: {
-        marginLeft: "5px"
+        marginLeft: "5px",
+        display: "block"
     },
     modalReplyListContainer: {
         width: '100%',
@@ -406,7 +407,6 @@ const styles = {
         borderRadius: '15px',
         width: '100px',
         height: '50px',
-        marginTop: "130px"
     }
 }
 
