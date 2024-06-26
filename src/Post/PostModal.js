@@ -3,6 +3,8 @@ import styles from "./styles";
 import Parts from "../Parts/Parts";
 
 function PostModal(props) {
+    // 다음에 저장할 게시글 아이템 id
+    const [nextPostId, setNextPostId] = useState(0);
     // 수정 중인지 여부
     const [EditProcess, setEditProcess] = useState(false);
     // 게시글 아이템
@@ -57,6 +59,15 @@ function PostModal(props) {
         }
     }, [postItem]);
 
+    // 현재 날짜 반환 함수
+    function getDate() {
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        return `${year}.${month}.${day}`;
+    }
+
     // 등록 버튼 핸들러
     function EntryHandler(event) {
         if (!title.trim() || !content.trim()) {
@@ -64,15 +75,27 @@ function PostModal(props) {
             return;
         }
 
+        let postList = JSON.parse(localStorage.getItem('postList'));
+        if(postList !== null && postList.length !== 0){
+            let postArray = JSON.parse(localStorage.getItem('postList'));
+            setNextPostId(postArray[postArray.length-1].postId + 1);
+        }else{
+            localStorage.clear();
+        }
+
         let listItem = {
-            postId: 0,
+            postId: nextPostId,
             title: title,
-            date: date,
+            date: getDate(),
             content: content,
             isAsk: isAsk,
             isComplete: isComplete
         }
-        props.BtnHandlerSet.createHandler(listItem);
+
+        postList.push(listItem);
+        localStorage.setItem('postList', JSON.stringify(postList));
+        setNextPostId(nextPostId + 1);
+        props.modalHandler();
     }
 
     // 수정 버튼 핸들러
@@ -138,6 +161,11 @@ function PostModal(props) {
         setPartsOn(false);
     }
 
+    // 부품 정보 저장 핸들러
+    function PartInputSaveHandler(parts){
+
+    }
+
     // 버튼 종류
     let buttonOutput;
     if (isCreate) {
@@ -166,8 +194,6 @@ function PostModal(props) {
                 <button onClick={props.modalHandler} style={styles.modalCancelBtn}>닫기</button>
             </>
     }
-
-    let completeOutPut = <button id="inputCompleteBtn" style={styles.completeOutPut}>입력 완료</button>
 
     // 제목, 내용, 문의/추천 여부
     let titleOutput, isAskOutput, contentOutput, dateOutput, partsOutput;
@@ -240,7 +266,7 @@ function PostModal(props) {
                     {buttonOutput}
                 </div>
             </div>
-            {partsOn && <Parts EditOrCreate={isCreate || EditProcess} partCloseHandler={PartCloseHandler} completeBtn={completeOutPut}/>}
+            {partsOn && <Parts EditOrCreate={isCreate || EditProcess} partCloseHandler={PartCloseHandler} PartInputSaveHandler={PartInputSaveHandler}/>}
         </dialog>
     )
 }
