@@ -10,10 +10,15 @@ function CommentList(props) {
 
     // 댓글 ID 초기화
     useEffect(() => {
-        let postList = JSON.parse(localStorage.getItem(postId));
-        if (postList !== null && postList.length !== 0) {
-            setComments(postList);
-            setCommentId(postList[postList.length - 1].commentId + 1);
+        let allCommentList = JSON.parse(localStorage.getItem('commentList')) || [];
+        
+        if (allCommentList.length !== 0) {
+            setCommentId(allCommentList[allCommentList.length - 1].commentId + 1);
+            setComments(allCommentList);
+
+        } else {
+            setCommentId(0);
+            setComments([]);
         }
     }, [postId]);
 
@@ -25,14 +30,15 @@ function CommentList(props) {
 
         let commentItem = {
             commentId: commentId,
-            postId: props.postId,
+            postId: postId,
             text: text,
             date: getDate()
         };
 
         let commentArray = [...comments, commentItem];
         setComments(commentArray);
-        localStorage.setItem(props.postId, JSON.stringify(commentArray));  // 게시글 ID를 키로 사용
+
+        localStorage.setItem('commentList', JSON.stringify(commentArray));  
         setCommentId(commentId + 1);
         setText("");  // 댓글 작성 후 입력 필드 초기화
     };
@@ -47,7 +53,7 @@ function CommentList(props) {
     }
 
     const EditCommentHandler = (id, newText) => {
-        let commentArray = comments.map(comment => {
+        let updatedComments = comments.map(comment => {
             if (comment.commentId === id) {
                 return { 
                     ...comment, 
@@ -57,27 +63,29 @@ function CommentList(props) {
             }
             return comment;
         });
-        setComments(commentArray);
-        localStorage.setItem(postId, JSON.stringify(commentArray));  // 게시글 ID를 키로 사용
+        setComments(updatedComments);
+        localStorage.setItem('commentList', JSON.stringify(updatedComments));  
     };
 
     const DeleteCommentHandler = (id) => {
         let commentArray = comments.filter(comment => comment.commentId !== id);
         setComments(commentArray);
-        localStorage.setItem(postId, JSON.stringify(commentArray));  // 게시글 ID를 키로 사용
+        localStorage.setItem('commentList', JSON.stringify(commentArray));  
     };
 
     return(
         <>
             <div style={styles.modalReplyListContainer}>
-                {comments.map((comment) => (
-                    <CommentItem 
-                        key={comment.commentId} 
-                        comment={comment} 
-                        onEdit={EditCommentHandler}
-                        onDelete={DeleteCommentHandler}
-                    />
-                ))}
+                {comments
+                    .filter(comment => comment.postId === postId)
+                    .map((comment) => (
+                        <CommentItem 
+                            key={comment.commentId} 
+                            comment={comment} 
+                            onEdit={EditCommentHandler}
+                            onDelete={DeleteCommentHandler}
+                        />
+                    ))}
             </div>
             <div style={styles.modalReplyInputContainer}>
                 <textarea 

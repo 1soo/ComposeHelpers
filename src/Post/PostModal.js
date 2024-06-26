@@ -254,7 +254,7 @@ function PostModal(props) {
                         작성일: {date}
                     </div>;
         commentOutput = <div style={styles.modalReplyContainer}>
-                        <CommentList/>
+                        <CommentList postId={props.postId}/>
                     </div>
     }
 
