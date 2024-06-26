@@ -27,10 +27,21 @@ function PostModal(props) {
     // 컴포넌트 생성시 값들 초기화
     useEffect(() => {
         modalRef.current.showModal();
+
+        let postList = [];
+        if(localStorage.getItem('postList')){
+            postList = JSON.parse(localStorage.getItem('postList'));
+            if(postList.length !== 0){
+                setNextPostId(postList[postList.length-1].postId + 1);
+            }else{
+                localStorage.clear();
+            }
+        }
+
         // 아이템 클릭 시
         if (!props.isCreate) {
-            if(JSON.parse(localStorage.getItem('postList'))){
-                setPostItem(JSON.parse(localStorage.getItem('postList')).filter((post)=>post.postId === props.postId)[0]);
+            if(postList){
+                setPostItem(postList.filter((post)=>post.postId === props.postId)[0]);
             }else{
                 alert('localStorage에 해당 데이터가 저장되어 있지 않습니다.');
             }
@@ -75,14 +86,6 @@ function PostModal(props) {
             return;
         }
 
-        let postList = JSON.parse(localStorage.getItem('postList'));
-        if(postList !== null && postList.length !== 0){
-            let postArray = JSON.parse(localStorage.getItem('postList'));
-            setNextPostId(postArray[postArray.length-1].postId + 1);
-        }else{
-            localStorage.clear();
-        }
-
         let listItem = {
             postId: nextPostId,
             title: title,
@@ -90,6 +93,11 @@ function PostModal(props) {
             content: content,
             isAsk: isAsk,
             isComplete: isComplete
+        }
+
+        let postList = [];
+        if(localStorage.getItem('postList')){
+            postList = JSON.parse(localStorage.getItem('postList'));
         }
 
         postList.push(listItem);
@@ -105,7 +113,6 @@ function PostModal(props) {
 
     // 수정 완료 버튼 핸들러
     function EditCompleteHandler(event) {
-
         if (!title.trim() || !content.trim()) {
             alert("제목과 내용을 모두 입력하세요.");
             return;
@@ -116,10 +123,20 @@ function PostModal(props) {
             title: title,
             date: date,
             content: content,
-            isAsk: postItem.isAsk,
-            isComplete: postItem.isComplete
+            isAsk: isAsk,
+            isComplete: isComplete
         }
-        props.BtnHandlerSet.editHandler(editItem);
+
+        let postArray = [];
+        if (localStorage.getItem('postList')) {
+            postArray = JSON.parse(localStorage.getItem('postList'));
+            postArray.forEach((post, index) => {
+                if (post.postId === editItem.postId) {
+                    postArray[index] = editItem;
+                }
+            });
+            localStorage.setItem('postList', JSON.stringify(postArray));
+        }
         setEditProcess(false);
     }
 
@@ -130,25 +147,18 @@ function PostModal(props) {
 
     // 삭제 버튼 핸들러
     function DeleteHandler(event) {
-        props.BtnHandlerSet.deleteHandler(postItem.postId);
-    }
+        let postArray = [];
 
-    //해결 버튼 핸들러
-    function EditSolveHandler(event) {
-        setIsComplete((prevIsComplete) => {
-            const newIsComplete = !prevIsComplete;
-            let editItem = {
-                postId: postItem.postId,
-                title: title,
-                date: date,
-                content: content,
-                isAsk: isAsk,
-                isComplete: newIsComplete
-            };
-            props.BtnHandlerSet.editHandler(editItem);
-            setEditProcess(false);
-            return newIsComplete;
-        });
+        if (localStorage.getItem("postList") ) {
+            postArray = JSON.parse(localStorage.getItem("postList"));
+
+            postArray.forEach((post, index) => {
+                if (postItem.postId === post.postId) {
+                    localStorage.setItem("postList", JSON.stringify(postArray.filter((postValue) => postValue !== postArray[index])));
+                }
+            })
+        }
+        props.modalHandler();
     }
 
     // 부품 정보 열기 버튼 핸들러
@@ -178,7 +188,7 @@ function PostModal(props) {
         buttonOutput = (
             <>
                 <button
-                    onClick={EditSolveHandler}
+                    onClick={(e)=>setIsComplete(!isComplete)}
                     style={isComplete ? styles.modalNonsolveBtn : styles.modalSolveBtn}>
                     {isComplete ? "미해결" : "해결"}
                 </button>
@@ -196,7 +206,7 @@ function PostModal(props) {
     }
 
     // 제목, 내용, 문의/추천 여부
-    let titleOutput, isAskOutput, contentOutput, dateOutput, partsOutput;
+    let titleOutput, isAskOutput, contentOutput, dateOutput;
     if (isCreate || EditProcess) {
         titleOutput = <input
             type="text"

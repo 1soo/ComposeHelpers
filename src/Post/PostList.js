@@ -30,48 +30,11 @@ function PostList(props) {
         setModalOn(true);
     }
 
-    // 수정 완료 버튼 핸들러
-    function EditHandler(editItem) {
-        let postArray = [];
-        if (localStorage.getItem('postList')) {
-            postArray = JSON.parse(localStorage.getItem('postList'));
-            postArray.forEach((post, index) => {
-                if (post.postId === editItem.postId) {
-                    postArray[index] = editItem;
-                }
-            });
-            localStorage.setItem('postList', JSON.stringify(postArray));
-        }
-    }
-
-    // 삭제 버튼 핸들러
-    function DeleteHandler(id) {
-        let postArray = [];
-
-        if (localStorage.getItem("postList") ) {
-            postArray = JSON.parse(localStorage.getItem("postList"));
-
-            postArray.forEach((post, index) => {
-                if (id === post.postId) {
-                    localStorage.setItem("postList", JSON.stringify(postArray.filter((postValue) => postValue !== postArray[index])));
-                }
-            })
-        }
-        setPostId();
-        setModalOn(false);
-    }
-
     // 아이템 클릭 핸들러
     function ItemClickHandler(itemId) {
         setPostId(itemId);
         setIsCreate(false);
         setModalOn(true);
-    }
-
-    // 버튼 핸들러 객체
-    let BtnHandlerSet = {
-        editHandler: EditHandler,
-        deleteHandler: DeleteHandler
     }
 
     // 추천 게시글과 문의 게시글 분류
@@ -109,7 +72,7 @@ function PostList(props) {
                     })}
                 </div>
             </div>
-            {modalOn && <PostModal modalHandler={ModalHandler} postId={postId} isCreate={isCreate} BtnHandlerSet={BtnHandlerSet} />}
+            {modalOn && <PostModal modalHandler={ModalHandler} postId={postId} isCreate={isCreate} />}
         </div>
     )
 }
