@@ -167,10 +167,16 @@ function PostModal(props) {
     // 삭제 버튼 핸들러
     function DeleteHandler(event) {
         let postArray = [];
+        let partsArray = [];
 
         if (localStorage.getItem("postList") ) {
             postArray = JSON.parse(localStorage.getItem("postList"));
             localStorage.setItem("postList", JSON.stringify(postArray.filter((postValue) => postValue.postId !== postItem.postId)));
+            
+        }
+        if(localStorage.getItem('partsList')){
+            partsArray = JSON.parse(localStorage.getItem('partsList'));
+            localStorage.setItem('partsList', JSON.stringify(partsArray.filter((partValue) => partValue.postId !== postItem.postId)));
         }
         props.modalHandler();
     }
