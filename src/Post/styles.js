@@ -306,10 +306,73 @@ const styles = {
     partsTitle: {
         marginLeft: "5px"
     },
-    modalReplyListContainer:{
+    modalReplyListContainer: {
         width: '100%',
         height: '150px',
-        overflowY: 'auto',        
+        overflowY: 'auto',
+        backgroundColor: '#f9f9f9',
+        borderRadius: '5px',
+        border: '1px solid #ddd',
+        marginBottom: '15px'
+    },
+    commentContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '10px',
+        marginBottom: '10px',
+        backgroundColor: '#fff',
+        borderRadius: '5px',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+    },
+    commentDetails: {
+        display: 'flex',
+        alignItems: 'center',
+    },
+    commentAvatar: {
+        width: '40px',
+        height: '40px',
+        borderRadius: '50%',
+        marginRight: '10px',
+    },
+    commentTextContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    commentAuthor: {
+        fontWeight: 'bold',
+        fontSize: '14px',
+    },
+    commentDate: {
+        fontSize: '12px',
+        color: '#999',
+    },
+    commentText: {
+        marginTop: '5px',
+        fontSize: '14px',
+    },
+    commentActions: {
+        display: 'flex',
+        gap: '10px',
+    },
+    editButton: {
+        backgroundColor: '#4CAF50',
+        color: '#fff',
+        border: 'none',
+        borderRadius: '5px',
+        padding: '5px 10px',
+        cursor: 'pointer',
+    },
+    deleteButton: {
+        backgroundColor: '#f44336',
+        color: '#fff',
+        border: 'none',
+        borderRadius: '5px',
+        padding: '5px 10px',
+        cursor: 'pointer',
+    },
+    commentEdit:{
+        marginRight: '175px'
     },
     modalReplyInputContainer:{
         position: 'relative',
@@ -321,7 +384,6 @@ const styles = {
         height: '70px',
         resize: 'none',
         padding: '0px',
-        border: 'none',
         border: '1px solid #ced4da',
         borderRadius: '5px',
     },

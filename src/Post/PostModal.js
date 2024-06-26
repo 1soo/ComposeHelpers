@@ -20,6 +20,9 @@ function PostModal(props) {
     // 부품 정보 창 활성화 여부
     const [partsOn, setPartsOn] = useState(false);
 
+    // 부품 정보 저장
+    const [partObj, setPartObj] = useState({});
+
     // 생성 버튼인지 게시글 클릭인지 여부
     const isCreate = props.isCreate;
     // 모달 Ref
@@ -104,6 +107,21 @@ function PostModal(props) {
         postList.push(listItem);
         localStorage.setItem('postList', JSON.stringify(postList));
         setNextPostId(nextPostId + 1);
+
+        let partsList = [];
+
+        if(localStorage.getItem("partsList") === null) {
+            localStorage.setItem("partsList", JSON.stringify(partsList));
+        }
+
+        if(localStorage.getItem("partsList")) {
+            partsList = JSON.parse(localStorage.getItem("partsList"));
+
+            partsList.push(partObj);
+
+            localStorage.setItem("partsList", JSON.stringify(partsList));
+        }
+
         props.modalHandler();
     }
 
@@ -169,7 +187,13 @@ function PostModal(props) {
 
     // 부품 정보 저장 핸들러
     function PartInputSaveHandler(parts){
+        console.log(`partsId: ${parts.partId}`);
 
+        parts.partId = nextPostId;
+
+        setPartObj(parts);
+
+        console.log(partObj);
     }
 
     // 버튼 종류

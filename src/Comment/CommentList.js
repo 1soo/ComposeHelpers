@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CommentItem from './CommentItem';
-import styles from "../Post/styles"
+import styles from "../Post/styles";
 
 function CommentList(props) {
     const [commentId, setCommentId] = useState(0);
