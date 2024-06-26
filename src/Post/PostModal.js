@@ -139,7 +139,7 @@ function PostModal(props) {
     }
 
     // 버튼 종류
-    let buttonOutput;
+    let buttonOutput, completeOutPut;
     if (isCreate) {
         buttonOutput =
             <>
@@ -166,6 +166,8 @@ function PostModal(props) {
                 <button onClick={props.modalHandler} style={styles.modalCancelBtn}>닫기</button>
             </>
     }
+
+    completeOutPut = <button id="inputCompleteBtn" style={styles.completeOutPut}>입력 완료</button>
 
     // 제목, 내용, 문의/추천 여부
     let titleOutput, isAskOutput, contentOutput, dateOutput, partsOutput;
@@ -238,7 +240,7 @@ function PostModal(props) {
                     {buttonOutput}
                 </div>
             </div>
-            {partsOn && <Parts EditOrCreate={isCreate || EditProcess} partCloseHandler={PartCloseHandler} />}
+            {partsOn && <Parts EditOrCreate={isCreate || EditProcess} partCloseHandler={PartCloseHandler} completeBtn={completeOutPut}/>}
         </dialog>
     )
 }

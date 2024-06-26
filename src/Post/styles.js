@@ -305,6 +305,14 @@ const styles = {
 
     partsTitle: {
         marginLeft: "5px"
+    },
+
+    completeOutPut: {
+        backgroundColor: 'white',
+        borderRadius: '15px',
+        width: '100px',
+        height: '50px',
+        marginTop: "130px"
     }
 }
 
