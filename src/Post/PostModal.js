@@ -152,12 +152,7 @@ function PostModal(props) {
 
         if (localStorage.getItem("postList") ) {
             postArray = JSON.parse(localStorage.getItem("postList"));
-
-            postArray.forEach((post, index) => {
-                if (postItem.postId === post.postId) {
-                    localStorage.setItem("postList", JSON.stringify(postArray.filter((postValue) => postValue !== postArray[index])));
-                }
-            })
+            localStorage.setItem("postList", JSON.stringify(postArray.filter((postValue) => postValue.postId !== postItem.postId)));
         }
         props.modalHandler();
     }
