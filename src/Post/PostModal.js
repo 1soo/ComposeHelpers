@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles";
 import Parts from "../Parts/Parts";
+import CommentList from "../Comment/CommentList";
 
 function PostModal(props) {
     // 수정 중인지 여부
@@ -168,7 +169,7 @@ function PostModal(props) {
     }
 
     // 제목, 내용, 문의/추천 여부
-    let titleOutput, isAskOutput, contentOutput, dateOutput, partsOutput;
+    let titleOutput, isAskOutput, contentOutput, dateOutput, partsOutput, commentOutput;
     if (isCreate || EditProcess) {
         titleOutput = <input
             type="text"
@@ -206,13 +207,20 @@ function PostModal(props) {
             placeholder="내용을 입력하세요"
             style={styles.modalContentInput} />;
         
+        
+        
     } else {
         titleOutput = title;
         contentOutput = content;
         dateOutput = <div style={styles.modalDate}>
                         작성일: {date}
                     </div>;
+        commentOutput = <div style={styles.modalReplyContainer}>
+                        <CommentList/>
+                    </div>
     }
+
+
 
 
     return (
@@ -231,9 +239,7 @@ function PostModal(props) {
                         부품 정보
                     </button>
                 </div>
-                <div style={styles.modalReplyContainer}>
-
-                </div>
+                {commentOutput}
                 <div style={styles.modalBtnContainer}>
                     {buttonOutput}
                 </div>

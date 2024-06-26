@@ -6,6 +6,7 @@ function CommentItem(props) {
     const [editText, setEditText] = useState();
 
     const handleEditClick = () => {
+        setEditText(comment.text);
         setIsEditing(true);
     };
 
