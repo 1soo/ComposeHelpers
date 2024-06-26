@@ -5,8 +5,6 @@ import PostModal from "./PostModal";
 
 function PostList(props) {
     const [modalOn, setModalOn] = useState(false);
-    // 다음에 저장할 게시글 아이템 id
-    const [nextPostId, setNextPostId] = useState(0);
     // 게시글 배열
     const [recmArr, setRecmArr] = useState([]);
     const [askArr, setAskArr] = useState([]);
@@ -15,21 +13,14 @@ function PostList(props) {
     // 아이템 클릭시 모달에 띄울 게시글아이템 id
     const [postId, setPostId] = useState();
 
-    // postId값 초기화
+    // 저장할 postId값 초기화
     useEffect(()=>{
-        let postList = JSON.parse(localStorage.getItem('postList'));
-        if(postList !== null && postList.length !== 0){
-            let postArray = JSON.parse(localStorage.getItem('postList'));
-            setNextPostId(postArray[postArray.length-1].postId + 1);
-        }else{
-            localStorage.clear();
-        }
+        
     }, []);
 
     // 모달 활성화 여부
     let ModalHandler = useCallback((event) => {
         setModalOn(modalOn => !modalOn);
-        setPostId();
     }, []);
 
     // 작성 버튼 핸들러
@@ -37,30 +28,6 @@ function PostList(props) {
         setPostId();
         setIsCreate(true);
         setModalOn(true);
-    }
-
-    // 작성 완료 버튼 핸들러
-    let CreateHandler = (listItem) => {
-        let postArray = [];
-        if (localStorage.getItem('postList')) {
-            postArray = JSON.parse(localStorage.getItem('postList'));
-        }
-        listItem.postId = nextPostId;
-        listItem.date = getDate();
-        postArray.push(listItem);
-        localStorage.setItem('postList', JSON.stringify(postArray));
-
-        setNextPostId(postId + 1);
-        setModalOn(false);
-    }
-
-    // 현재 날짜 반환 함수
-    function getDate() {
-        let date = new Date();
-        let year = date.getFullYear();
-        let month = date.getMonth() + 1;
-        let day = date.getDate();
-        return `${year}.${month}.${day}`;
     }
 
     // 수정 완료 버튼 핸들러
@@ -103,7 +70,6 @@ function PostList(props) {
 
     // 버튼 핸들러 객체
     let BtnHandlerSet = {
-        createHandler: CreateHandler,
         editHandler: EditHandler,
         deleteHandler: DeleteHandler
     }

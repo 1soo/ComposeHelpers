@@ -337,6 +337,14 @@ const styles = {
         color: 'white',
         backgroundColor: '#00AE68',
         fontWeight: 'bold'
+    },
+
+    completeOutPut: {
+        backgroundColor: 'white',
+        borderRadius: '15px',
+        width: '100px',
+        height: '50px',
+        marginTop: "130px"
     }
 }
 
