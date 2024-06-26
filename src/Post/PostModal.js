@@ -170,7 +170,12 @@ function PostModal(props) {
 
         if (localStorage.getItem("postList") ) {
             postArray = JSON.parse(localStorage.getItem("postList"));
-            localStorage.setItem("postList", JSON.stringify(postArray.filter((postValue) => postValue.postId !== postItem.postId)));
+
+            postArray.forEach((post, index) => {
+                if (postItem.postId === post.postId) {
+                    localStorage.setItem("postList", JSON.stringify(postArray.filter((postValue) => postValue !== postArray[index])));
+                }
+            })
         }
         props.modalHandler();
     }
@@ -269,12 +274,11 @@ function PostModal(props) {
                         작성일: {date}
                     </div>;
         commentOutput = <div style={styles.modalReplyContainer}>
-                        <CommentList postId={props.postId}/>
+                        <CommentList 
+                            postId={props.postId}
+                        />
                     </div>
     }
-
-
-
 
     return (
         <dialog ref={modalRef} style={styles.modalContainer}>
