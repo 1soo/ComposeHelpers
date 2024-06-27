@@ -231,3 +231,11 @@ body{
 .modal-content button:hover {
     background-color: #0056b3;
 }
+
+/* 뷰 모달 */
+.viewContainer{
+    width: 1000px;
+    height: 800px;
+    margin: 0px auto;
+    border: 1px solid #000;
+}

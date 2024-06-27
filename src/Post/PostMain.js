@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import './PostMain.css';
 import Header from './Header';
 
-function AskSection({ items }) {
+function AskSection({ items, openViewModal }) {
     const notCompletedItems = items.filter(item => !item.completed && item.section === 'ask');
     const completedItems = items.filter(item => item.completed && item.section === 'ask');
 
@@ -11,33 +11,33 @@ function AskSection({ items }) {
             <div id="askSection">
                 <div id="title">Not Completed...</div>
                 <div id="listContainer">
-                    {notCompletedItems.map((item, index) => <PostItem key={index} item={item} />)}
+                    {notCompletedItems.map((item, index) => <PostItem key={item.postId} item={item} openViewModal={openViewModal} />)}
                 </div>
             </div>
             <div id="askSection">
                 <div id="title">Completed!</div>
                 <div id="listContainer">
-                    {completedItems.map((item, index) => <PostItem key={index} item={item} />)}
+                    {completedItems.map((item, index) => <PostItem key={item.postId} item={item} />)}
                 </div>
             </div>
         </>
     );
 }
 
-function RecommendSection({ items }) {
+function RecommendSection({ items, openViewModal }) {
     const recommendItems = items.filter(item => item.section === 'recommend');
     
     return (
         <div id="recmSection">
             <div id="title">Recommend!</div>
             <div id="listContainer">
-                {recommendItems.map((item, index) => <PostItem key={index} item={item} />)}
+                {recommendItems.map((item, index) => <PostItem key={item.postId} item={item} openViewModal={openViewModal} />)}
             </div>
         </div>
     );
 }
 
-function AddPostModal({ onClose, onAdd }) {
+function AddPostModal({ onClose, onAdd, postId, setPostId }) {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [isCompleted, setIsCompleted] = useState(false);
@@ -53,6 +53,7 @@ function AddPostModal({ onClose, onAdd }) {
 
     function handleAddPost() {
         const newItem = {
+            postId: postId,
             title:title,
             content:content,
             date: getDate(),
@@ -62,6 +63,7 @@ function AddPostModal({ onClose, onAdd }) {
             section:section
         };
         onAdd(newItem);
+        setPostId(postId + 1);
         onClose();
     }
 
@@ -85,9 +87,9 @@ function AddPostModal({ onClose, onAdd }) {
     );
 }
 
-function PostItem({ item }) {
+function PostItem({ item, openViewModal }) {
     return (
-        <div id="postItem">
+        <div id="postItem" onClick={openViewModal}>
             <div id="itemTitle">{item.title}</div>
             <div id="itemContent">{item.content}</div>
             <div id="itemDate">{item.date}</div>
@@ -102,7 +104,13 @@ function PostView(props){
 
     return(
         <div className="modal">
-
+            <div className="viewContainer">
+                <div className="title"></div>
+                <div className="content"></div>
+                <div className="part"></div>
+                <div className="reply"></div>
+                <button onClick={props.closeViewModal}>닫기</button>
+            </div>
         </div>
     )
 }
@@ -111,12 +119,18 @@ function PostMain(props) {
     const [isAsk, setIsAsk] = useState(true);
     const [items, setItems] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [viewModalOn, setViewModalOn] = useState(false);
+    const [viewModal, setViewModal] = useState(false);
+    const [postId, setPostId] = useState(0);
 
     useEffect(() => {
         const storedItems = localStorage.getItem('items');
         if (storedItems) {
             setItems(JSON.parse(storedItems));
+            if(JSON.parse(storedItems).length > 0) {
+                setPostId(JSON.parse(storedItems)[JSON.parse(storedItems).length-1].postId + 1);
+            } else {
+                setPostId(0);
+            }
         }
     }, []);
 
@@ -141,20 +155,20 @@ function PostMain(props) {
     }
 
     function openViewModal(){
-        setViewModalOn(true);
+        setViewModal(true);
     }
 
     function closeViewModal(){
-        setViewModalOn(true);
+        setViewModal(false);
     }
 
     return (
         <>
             <Header MenuChangeHandler={MenuChangeHandler} openModal={openModal} />
             <div id="main">
-                {isAsk ? <AskSection items={items} /> : <RecommendSection items={items} />}
-                {isModalOpen && <AddPostModal onClose={closeModal} onAdd={handleAddPost} />}
-                {viewModalOn && <PostView />}
+                {isAsk ? <AskSection items={items} openViewModal={openViewModal}/> : <RecommendSection items={items} openViewModal={openViewModal}/>}
+                {isModalOpen && <AddPostModal onClose={closeModal} onAdd={handleAddPost} postId={postId} setPostId={setPostId} />}
+                {viewModal && <PostView closeViewModal={closeViewModal} />}
             </div>
         </>
     );
