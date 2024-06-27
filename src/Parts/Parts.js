@@ -69,7 +69,7 @@ const Parts = forwardRef((props, ref) =>{
 
     return(
             <>
-                <label>부품 정보</label>
+                {props.EditOrCreate && <label>부품 정보</label>}
                 <table className="parts">
                     <tbody>
                         <tr>
