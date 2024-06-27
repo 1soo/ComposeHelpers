@@ -246,16 +246,14 @@ body{
     left: 0;
     top: 0;
     width: 60%;
-    height: 20%;
-    background-color: red;
+    height: 10%;
 }
 .viewContainer .content{
     position: absolute;
     left: 0;
-    top: 20%;
+    top: 10%;
     width: 60%;
-    height: 50%;
-    background-color: green;
+    height: 60%;
 }
 .viewContainer .parts{
     position: absolute;
