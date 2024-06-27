@@ -17,7 +17,7 @@ function AskSection({ items, openViewModal }) {
             <div id="askSection">
                 <div id="title">Completed!</div>
                 <div id="listContainer">
-                    {completedItems.map((item, index) => <PostItem key={item.postId} item={item} />)}
+                    {completedItems.map((item, index) => <PostItem key={item.postId} item={item} openViewModal={openViewModal} />)}
                 </div>
             </div>
         </>
@@ -105,11 +105,11 @@ function PostView(props){
     return(
         <div className="modal">
             <div className="viewContainer">
-                <div className="title"></div>
-                <div className="content"></div>
-                <div className="part"></div>
-                <div className="reply"></div>
-                <button onClick={props.closeViewModal}>닫기</button>
+                <div className="title">제목</div>
+                <div className="content">내용</div>
+                <div className="parts">부품</div>
+                <div className="reply">댓글</div>
+                <button className="closeBtn" onClick={props.closeViewModal}>&times;</button>
             </div>
         </div>
     )
