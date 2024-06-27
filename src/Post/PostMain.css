@@ -281,7 +281,6 @@ body{
     bottom: 0;
     width: 60%;
     height: 30%;
-    overflow-y: auto;
 }
 .viewContainer .reply{
     position: absolute;

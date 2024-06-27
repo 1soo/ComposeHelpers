@@ -11,7 +11,6 @@ function PostView(props, onAddComment){
         <div className="modal">
             <div className="viewContainer">
                 <h1 className="title">{selectpostList.title}</h1>
-                <div className="division-line"></div>
                 <div className="content">{selectpostList.content}</div>
                 <div className="parts">
                     <Parts EditOrCreate={false} ref={partsRef} postId={props.postId} />
