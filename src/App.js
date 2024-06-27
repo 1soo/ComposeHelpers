@@ -1,9 +1,9 @@
 import './App.css';
-import PostList from './Post/PostList';
+import PostMain from './Post/PostMain'
 
 function App() {
   return (
-    <PostList />
+    <PostMain />
   );
 }
 

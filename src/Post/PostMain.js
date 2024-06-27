@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import './PostMain.css';
-import logo from './img/logo.png';
+import logo from '../img/logo.png';
 
 // 헤더 컴포넌트
 function Header(props){
@@ -87,7 +87,6 @@ function PostItem(props){
         title: '제목입니다!',
         content: '내용입니다!',
         date: getDate(),
-        viewCnt: 5,
         commentCnt: 10,
         topComment: '제일 상단의 댓글입니다.'
     }
@@ -97,7 +96,7 @@ function PostItem(props){
               <div id="itemTitle">{itemObject.title}</div>
               <div id="itemContent">{itemObject.content}</div>
               <div id="itemDate">{itemObject.date}</div>
-              <div id="itemViewNCommentCnt">{'조회수 ' + itemObject.viewCnt + '회 | 댓글 ' + itemObject.commentCnt + '개'}</div>
+              <div id="itemCommentCnt">{'댓글 ' + itemObject.commentCnt + '개'}</div>
               <div id="itemTopComment">{itemObject.topComment}</div>
         </div>
     )
