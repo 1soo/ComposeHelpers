@@ -247,10 +247,30 @@ body{
 
 .viewContainer .title{
     position: absolute;
+    display: inline;
     left: 0;
     top: 0;
     width: 60%;
-    height: 10%;
+    height: 15%;
+}
+.viewContainer .buttons{
+    top: 0;
+    width: 15%;
+}
+.viewContainer #title {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+}
+
+.viewContainer #title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 80%;
+    border-bottom: 1px solid gray;
 }
 .viewContainer .content{
     position: absolute;
@@ -265,7 +285,7 @@ body{
     bottom: 0;
     width: 60%;
     height: 30%;
-    background-color: blue;
+    overflow-y: auto;
 }
 .viewContainer .reply{
     position: absolute;
@@ -285,4 +305,25 @@ body{
     line-height: 30px;
     background-color: lightcoral;
     border: 1px solid #999;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 18px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
 }
