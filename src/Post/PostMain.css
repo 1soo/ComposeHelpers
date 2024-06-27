@@ -67,10 +67,10 @@ body{
     display: flex;
     justify-content: space-evenly;
     width: 80%;
+    min-height: 770px;
     margin: 0px auto;
     background-color: #fff;
     padding-bottom: 40px;
-    height: 2000px;
 }
 
 /* 문의 */

@@ -97,10 +97,21 @@ function PostItem({ item }) {
     );
 }
 
+function PostView(props){
+
+
+    return(
+        <div className="modal">
+
+        </div>
+    )
+}
+
 function PostMain(props) {
     const [isAsk, setIsAsk] = useState(true);
     const [items, setItems] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [viewModalOn, setViewModalOn] = useState(false);
 
     useEffect(() => {
         const storedItems = localStorage.getItem('items');
@@ -129,12 +140,21 @@ function PostMain(props) {
         setIsModalOpen(false);
     }
 
+    function openViewModal(){
+        setViewModalOn(true);
+    }
+
+    function closeViewModal(){
+        setViewModalOn(true);
+    }
+
     return (
         <>
             <Header MenuChangeHandler={MenuChangeHandler} openModal={openModal} />
             <div id="main">
                 {isAsk ? <AskSection items={items} /> : <RecommendSection items={items} />}
                 {isModalOpen && <AddPostModal onClose={closeModal} onAdd={handleAddPost} />}
+                {viewModalOn && <PostView />}
             </div>
         </>
     );
