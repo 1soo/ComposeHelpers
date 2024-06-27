@@ -1,123 +1,149 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './PostMain.css';
-import logo from '../img/logo.png';
+import Header from './Header';
 
-// 헤더 컴포넌트
-function Header(props){
-    function MenuClickHandler(event){
-        document.querySelectorAll('#menu').forEach((element)=>{
-            element.style.borderBottom = 'none';
-        });
-        event.target.style.borderBottom = '2px solid blue';
-        if(event.target.innerText === '문의'){
-            props.MenuChangeHandler(true);
-        }else{
-            props.MenuChangeHandler(false);
-        }
-    }
+function AskSection({ items }) {
+    const notCompletedItems = items.filter(item => !item.completed && item.section === 'ask');
+    const completedItems = items.filter(item => item.completed && item.section === 'ask');
 
-    return(
-        <div id='header'>
-            <div id="imgBox"><img src={logo} alt="logo"></img></div>
-            <div id="menu" onClick={MenuClickHandler} style={{borderBottom:'2px solid blue'}}>문의</div>
-            <div id="menu" onClick={MenuClickHandler} >추천</div>
-        </div>
-    )
-}
-
-// 문의 게시글 컴포넌트
-function AskSection(props){ 
-     
-    return(
+    return (
         <>
             <div id="askSection">
                 <div id="title">Not Completed...</div>
                 <div id="listContainer">
-                    <PostItem />
-                    <PostItem />
-                    <PostItem />
-                    <PostItem />
+                    {notCompletedItems.map((item, index) => <PostItem key={index} item={item} />)}
                 </div>
             </div>
             <div id="askSection">
                 <div id="title">Completed!</div>
                 <div id="listContainer">
-                    <PostItem />
-                    <PostItem />
-                    <PostItem />
-                    <PostItem />
+                    {completedItems.map((item, index) => <PostItem key={index} item={item} />)}
                 </div>
             </div>
         </>
-    )
+    );
 }
 
-// 추천 게시글 컴포넌트
-function RecommendSection(props){
+function RecommendSection({ items }) {
+    const recommendItems = items.filter(item => item.section === 'recommend');
     
     return (
         <div id="recmSection">
             <div id="title">Recommend!</div>
             <div id="listContainer">
-                <PostItem />
-                <PostItem />
-                <PostItem />
-                <PostItem />
-                <PostItem />
-                <PostItem />
-                <PostItem />
-                <PostItem />
+                {recommendItems.map((item, index) => <PostItem key={index} item={item} />)}
             </div>
         </div>
-    )
+    );
 }
 
-// 게시글 아이템
-function PostItem(props){
+function AddPostModal({ onClose, onAdd }) {
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+    const [isCompleted, setIsCompleted] = useState(false);
+    const [section, setSection] = useState('ask');
 
-    function getDate(){
-        let now = new Date();
-        let year = now.getFullYear();
-        let month = now.getMonth() + 1;
-        let date = now.getDate();
-        return year + '.' + month + '.' + date;
+    function getDate() {
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        return `${year}.${month}.${day}`;
     }
 
-    let itemObject = {
-        title: '제목입니다!',
-        content: '내용입니다!',
-        date: getDate(),
-        commentCnt: 10,
-        topComment: '제일 상단의 댓글입니다.'
+    function handleAddPost() {
+        const newItem = {
+            title:title,
+            content:content,
+            date: getDate(),
+            commentCnt: 0,
+            topComment: '',
+            completed: isCompleted,
+            section:section
+        };
+        onAdd(newItem);
+        onClose();
     }
 
-    return(
-        <div id="postItem">
-              <div id="itemTitle">{itemObject.title}</div>
-              <div id="itemContent">{itemObject.content}</div>
-              <div id="itemDate">{itemObject.date}</div>
-              <div id="itemCommentCnt">{'댓글 ' + itemObject.commentCnt + '개'}</div>
-              <div id="itemTopComment">{itemObject.topComment}</div>
+    return (
+        <div className="modal">
+            <div className="modal-content">
+                <span className="close" onClick={onClose}>&times;</span>
+                <h2>새 게시글 추가</h2>
+                <label>제목:</label>
+                <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+                <label>내용:</label>
+                <textarea value={content} onChange={(e) => setContent(e.target.value)}></textarea>
+                {section === "ask" && 
+                    <div >
+                        <label>완료 여부:</label>
+                        <input type="checkbox" checked={isCompleted} onChange={(e) => setIsCompleted(e.target.checked)} />
+                    </div>
+                }
+                <label>섹션:</label>
+                <select value={section} onChange={(e) => setSection(e.target.value)}>
+                    <option value="ask">문의</option>
+                    <option value="recommend">추천</option>
+                </select>
+                <button onClick={handleAddPost}>추가</button>
+            </div>
         </div>
-    )
+    );
 }
 
-// 메인 컴포넌트
-function PostMain(props){
-    const [isAsk, setIsAsk] = useState(true);
+function PostItem({ item }) {
+    return (
+        <div id="postItem">
+            <div id="itemTitle">{item.title}</div>
+            <div id="itemContent">{item.content}</div>
+            <div id="itemDate">{item.date}</div>
+            <div id="itemCommentCnt">{'댓글 ' + item.commentCnt + '개'}</div>
+            <div id="itemTopComment">{item.topComment}</div>
+        </div>
+    );
+}
 
-    function MenuChangeHandler(bool){
+function PostMain(props) {
+    const [isAsk, setIsAsk] = useState(true);
+    const [items, setItems] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    useEffect(() => {
+        const storedItems = localStorage.getItem('items');
+        if (storedItems) {
+            setItems(JSON.parse(storedItems));
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('items', JSON.stringify(items));
+    }, [items]);
+
+    function MenuChangeHandler(bool) {
         setIsAsk(bool);
     }
 
-    return(
+    function handleAddPost(newItem) {
+        setItems([...items, newItem]);
+    }
+
+    function openModal() {
+        setIsModalOpen(true);
+    }
+
+    function closeModal() {
+        setIsModalOpen(false);
+    }
+
+    return (
         <>
-            <Header MenuChangeHandler={MenuChangeHandler} />
+            <Header MenuChangeHandler={MenuChangeHandler} openModal={openModal} />
             <div id="main">
-                {(isAsk) ? <AskSection /> : <RecommendSection />}
+                {isAsk ? <AskSection items={items} /> : <RecommendSection items={items} />}
+                {isModalOpen && <AddPostModal onClose={closeModal} onAdd={handleAddPost} />}
             </div>
         </>
-    )
+    );
 }
 
 export default PostMain;
