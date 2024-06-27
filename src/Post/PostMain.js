@@ -74,12 +74,6 @@ function AddPostModal({ onClose, onAdd }) {
                 <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
                 <label>내용:</label>
                 <textarea value={content} onChange={(e) => setContent(e.target.value)}></textarea>
-                {section === "ask" && 
-                    <div >
-                        <label>완료 여부:</label>
-                        <input type="checkbox" checked={isCompleted} onChange={(e) => setIsCompleted(e.target.checked)} />
-                    </div>
-                }
                 <label>섹션:</label>
                 <select value={section} onChange={(e) => setSection(e.target.value)}>
                     <option value="ask">문의</option>
