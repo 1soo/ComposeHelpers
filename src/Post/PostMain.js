@@ -11,13 +11,13 @@ function AskSection({ items }) {
             <div id="askSection">
                 <div id="title">Not Completed...</div>
                 <div id="listContainer">
-                    {notCompletedItems.map((item, index) => <PostItem key={index} item={item} />)}
+                    {notCompletedItems.map((item, index) => <PostItem key={item.postId} item={item} />)}
                 </div>
             </div>
             <div id="askSection">
                 <div id="title">Completed!</div>
                 <div id="listContainer">
-                    {completedItems.map((item, index) => <PostItem key={index} item={item} />)}
+                    {completedItems.map((item, index) => <PostItem key={item.postId} item={item} />)}
                 </div>
             </div>
         </>
@@ -31,13 +31,13 @@ function RecommendSection({ items }) {
         <div id="recmSection">
             <div id="title">Recommend!</div>
             <div id="listContainer">
-                {recommendItems.map((item, index) => <PostItem key={index} item={item} />)}
+                {recommendItems.map((item, index) => <PostItem key={item.postId} item={item} />)}
             </div>
         </div>
     );
 }
 
-function AddPostModal({ onClose, onAdd }) {
+function AddPostModal({ onClose, onAdd, postId, setPostId }) {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [isCompleted, setIsCompleted] = useState(false);
@@ -53,6 +53,7 @@ function AddPostModal({ onClose, onAdd }) {
 
     function handleAddPost() {
         const newItem = {
+            postId: postId,
             title:title,
             content:content,
             date: getDate(),
@@ -62,6 +63,7 @@ function AddPostModal({ onClose, onAdd }) {
             section:section
         };
         onAdd(newItem);
+        setPostId(postId + 1);
         onClose();
     }
 
@@ -101,11 +103,17 @@ function PostMain(props) {
     const [isAsk, setIsAsk] = useState(true);
     const [items, setItems] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [postId, setPostId] = useState(0);
 
     useEffect(() => {
         const storedItems = localStorage.getItem('items');
         if (storedItems) {
             setItems(JSON.parse(storedItems));
+            if(JSON.parse(storedItems).length > 0) {
+                setPostId(JSON.parse(storedItems)[JSON.parse(storedItems).length-1].postId + 1);
+            } else {
+                setPostId(0);
+            }
         }
     }, []);
 
@@ -134,7 +142,8 @@ function PostMain(props) {
             <Header MenuChangeHandler={MenuChangeHandler} openModal={openModal} />
             <div id="main">
                 {isAsk ? <AskSection items={items} /> : <RecommendSection items={items} />}
-                {isModalOpen && <AddPostModal onClose={closeModal} onAdd={handleAddPost} />}
+                {isModalOpen && <AddPostModal onClose={closeModal} onAdd={handleAddPost}
+                                                postId={postId} setPostId={setPostId}  />}
             </div>
         </>
     );
