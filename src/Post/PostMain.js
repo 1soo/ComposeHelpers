@@ -139,6 +139,21 @@ function PostMain(props) {
         localStorage.setItem('items', JSON.stringify(items));
     }, [items]);
 
+    function handleAddComment(postId, comment) {
+        setItems(items.map(item => {
+            if (item.postId === postId) {
+                const updatedComments = [...(item.comments || []), comment];
+                return {
+                    ...item,
+                    commentCnt: updatedComments.length,
+                    topComment: updatedComments[0].text,
+                };
+            }
+            return item;
+        }));
+    }
+
+
     function MenuChangeHandler(bool) {
         setIsAsk(bool);
     }

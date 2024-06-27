@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import CommentItem from './CommentItem';
 import styles from "../Post/styles";
 
-function CommentList(props) {
+function CommentList( props,  onAddComment) {
     const [commentId, setCommentId] = useState(0);
     const [text, setText] = useState("");
     const [comments, setComments] = useState([]);
@@ -41,6 +41,8 @@ function CommentList(props) {
         localStorage.setItem('commentList', JSON.stringify(commentArray));  
         setCommentId(commentId + 1);
         setText("");  // 댓글 작성 후 입력 필드 초기화
+
+        // onAddComment(postId, comments);
     };
 
     // 현재 날짜 반환 함수

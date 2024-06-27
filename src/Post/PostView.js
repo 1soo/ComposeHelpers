@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
+import CommentList from '../Comment/CommentList';
 import Parts from "../Parts/Parts";
 
-function PostView(props){
+function PostView(props, onAddComment){
     const partsRef = useRef();
-
     const postList = props.items;
     const selectpostList = postList.filter((post)=>post.postId === props.postId)[0]
 
@@ -16,7 +16,9 @@ function PostView(props){
                 <div className="parts">
                     <Parts EditOrCreate={false} ref={partsRef} postId={props.postId} />
                 </div>
-                <div className="reply">댓글</div>
+                <div className="reply">
+                    <CommentList postId={props.postId} onAddComment={onAddComment} />
+                </div>
                 <button className="closeBtn" onClick={props.closeViewModal}>&times;</button>
             </div>
         </div>
