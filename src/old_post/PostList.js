@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import styles from "./styles";
+import styles from "../Post/styles";
 import PostItem from "./PostItem";
 import PostModal from "./PostModal";
 

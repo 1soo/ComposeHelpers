@@ -1,4 +1,4 @@
-import styles from "./styles";
+import styles from "../Post/styles";
 
 function PostItem(props){
     // 전달받은 게시글 객체

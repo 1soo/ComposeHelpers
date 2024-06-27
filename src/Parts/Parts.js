@@ -24,14 +24,13 @@ const Parts = forwardRef((props, ref) =>{
     }));
 
     useEffect(()=>{
-        if(props.EditOrCreate){
+        if(!props.EditOrCreate){
             document.querySelectorAll('.parts input').forEach((element) => {
                 element.setAttribute('disabled', true);
             });
-        }else{
             let savedParts = localStorage.getItem('parts');
-            if(savedParts){
-                let parts = JSON.parse(savedParts).filter((part)=>part.postId, props.postItem.postId)[0];
+            if(props.postId !== null && savedParts){
+                let parts = JSON.parse(savedParts).filter((part)=>part.postId === props.postId)[0];
                 setCpu(parts.cpu);
                 setGpCard(parts.gpCard);
                 setMainBoard(parts.mainBoard);

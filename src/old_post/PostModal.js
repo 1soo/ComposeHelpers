@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import styles from "./styles";
+import styles from "../Post/styles";
 import Parts from "../Parts/Parts";
 import CommentList from "../Comment/CommentList";
 
