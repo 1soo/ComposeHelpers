@@ -137,3 +137,24 @@ body{
     font-size: 14px;
     padding-left: 10px;
 }
+
+/* 모달 */
+#modalContainer{
+    position: fixed;
+    left: 10vw;
+    top: 2vh;
+    width: 1400px;
+    height: 800px;
+    background-color: rgba(180, 180, 180, 0.3);
+}
+
+#modalCancelBtn{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    font-size: 25px;
+    background-color: lightcoral;
+    color: #333;
+}

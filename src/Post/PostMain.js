@@ -74,6 +74,15 @@ function RecommendSection(props){
 
 // 게시글 아이템
 function PostItem(props){
+    const [modalOn, setModalOn] = useState(false);
+
+    let itemObject = {
+        title: '제목입니다!',
+        content: '내용입니다!',
+        date: getDate(),
+        commentCnt: 10,
+        topComment: '최근 작성된 댓글입니다.'
+    }
 
     function getDate(){
         let now = new Date();
@@ -83,22 +92,31 @@ function PostItem(props){
         return year + '.' + month + '.' + date;
     }
 
-    let itemObject = {
-        title: '제목입니다!',
-        content: '내용입니다!',
-        date: getDate(),
-        commentCnt: 10,
-        topComment: '제일 상단의 댓글입니다.'
+    function ModalHandler(){
+        setModalOn(!modalOn);
     }
 
     return(
-        <div id="postItem">
-              <div id="itemTitle">{itemObject.title}</div>
-              <div id="itemContent">{itemObject.content}</div>
-              <div id="itemDate">{itemObject.date}</div>
-              <div id="itemCommentCnt">{'댓글 ' + itemObject.commentCnt + '개'}</div>
-              <div id="itemTopComment">{itemObject.topComment}</div>
-        </div>
+        <>
+            <div id="postItem" onClick={ModalHandler}>
+                <div id="itemTitle">{itemObject.title}</div>
+                <div id="itemContent">{itemObject.content}</div>
+                <div id="itemDate">{itemObject.date}</div>
+                <div id="itemCommentCnt">{'댓글 ' + itemObject.commentCnt + '개'}</div>
+                <div id="itemTopComment">{itemObject.topComment}</div>
+            </div>
+            {modalOn && <WriteModal ModalHandler={ModalHandler}/>}
+        </>
+    )
+}
+
+function WriteModal(props){
+
+
+    return(
+        <dialog id="modalContainer"open>
+            <button id="modalCancelBtn" onClick={props.ModalHandler}>X</button>
+        </dialog>
     )
 }
 
