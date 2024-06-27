@@ -40,7 +40,6 @@ function RecommendSection({ items }) {
 function AddPostModal({ onClose, onAdd }) {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const [isCompleted, setIsCompleted] = useState(false);
     const [section, setSection] = useState('ask');
 
     function getDate() {
