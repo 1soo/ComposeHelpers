@@ -198,38 +198,8 @@ body{
     background-color: white;
     padding: 20px;
     border-radius: 5px;
-    width: 800px;
-    height: 720px;
+    width: 400px;
     position: relative;
-}
-
-.modal-content h2{
-    display: block;
-    width: 100%;
-    text-align: center;
-}
-
-.inputBox{
-    width: 60%;
-    height: 90%;
-    margin: 0px auto;
-}
-
-.inputBox table{
-    width: 100%;
-}
-.inputBox table tr td:first-child{
-    padding-left: 10px;
-}
-
-.inputBox table, .inputBox td{
-    border: 1px solid #999;
-}
-
-.inputBox .parts input[type='text']{
-    height: 30px;
-    border: none;
-    padding-left: 10px;
 }
 
 .close {
@@ -251,17 +221,11 @@ body{
     margin-top: 5px;
     margin-bottom: 10px;
 }
-.modal-content input[type='radio']{
-    margin-left: 90px;
-}
 
 .modal-content button {
-    display: block;
     background-color: #007bff;
     color: white;
     border: none;
-    margin: 0px auto;
-    margin-top: -30px;
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 5px;
@@ -288,10 +252,6 @@ body{
     top: 0;
     width: 60%;
     height: 15%;
-}
-.viewContainer .buttons{
-    top: 0;
-    width: 15%;
 }
 .viewContainer #title {
     position: relative;
@@ -341,25 +301,4 @@ body{
     line-height: 30px;
     background-color: lightcoral;
     border: 1px solid #999;
-}
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    font-size: 18px;
-    text-align: left;
-    border: 1px solid #ddd;
-}
-
-th, td {
-    padding: 12px;
-    border: 1px solid #ddd;
-}
-
-th {
-    background-color: #f2f2f2;
-}
-
-tr:nth-child(even) {
-    background-color: #f9f9f9;
 }
