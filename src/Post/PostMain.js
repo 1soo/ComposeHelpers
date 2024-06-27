@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import './PostMain.css';
 import Header from './Header';
+import Parts from "../Parts/Parts";
 
 function AskSection({ items, openViewModal }) {
     const notCompletedItems = items.filter(item => !item.completed && item.section === 'ask');
@@ -43,6 +44,8 @@ function AddPostModal({ onClose, onAdd, postId, setPostId }) {
     const [isCompleted, setIsCompleted] = useState(false);
     const [section, setSection] = useState('ask');
 
+    const partsRef = useRef();
+
     function getDate() {
         let date = new Date();
         let year = date.getFullYear();
@@ -63,6 +66,16 @@ function AddPostModal({ onClose, onAdd, postId, setPostId }) {
             section:section
         };
         onAdd(newItem);
+
+        let partsList = [];
+        let storedParts = localStorage.getItem('parts');
+        if(storedParts){
+            partsList = JSON.parse(storedParts);
+        }
+        let parts = {...partsRef.current.getValue(), postId: postId};
+        partsList.push(parts);
+        localStorage.setItem('parts', JSON.stringify(partsList));
+
         setPostId(postId + 1);
         onClose();
     }
@@ -72,16 +85,17 @@ function AddPostModal({ onClose, onAdd, postId, setPostId }) {
             <div className="modal-content">
                 <span className="close" onClick={onClose}>&times;</span>
                 <h2>새 게시글 추가</h2>
-                <label>제목:</label>
-                <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
-                <label>내용:</label>
-                <textarea value={content} onChange={(e) => setContent(e.target.value)}></textarea>
-                <label>섹션:</label>
-                <select value={section} onChange={(e) => setSection(e.target.value)}>
-                    <option value="ask">문의</option>
-                    <option value="recommend">추천</option>
-                </select>
-                <button onClick={handleAddPost}>추가</button>
+                <div className="inputBox">
+                    <label>제목</label>
+                    <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+                    <label>내용</label>
+                    <textarea value={content} onChange={(e) => setContent(e.target.value)}></textarea>
+                    <label>게시글 구분</label>
+                    <input type="radio" value={section} onChange={(e) => setSection('ask')} checked={section === 'ask'} /> 문의 게시글
+                    <input type="radio" value={section} onChange={(e) => setSection('recommend')} checked={section === 'recommend'} /> 추천 게시글
+                    <Parts EditOrCreate={false} ref={partsRef} />
+                </div>
+                <button onClick={handleAddPost}>작성 완료</button>
             </div>
         </div>
     );
@@ -101,13 +115,14 @@ function PostItem({ item, openViewModal }) {
 
 function PostView(props){
 
-
     return(
         <div className="modal">
             <div className="viewContainer">
                 <div className="title">제목</div>
                 <div className="content">내용</div>
-                <div className="parts">부품</div>
+                <div className="parts">
+                    
+                </div>
                 <div className="reply">댓글</div>
                 <button className="closeBtn" onClick={props.closeViewModal}>&times;</button>
             </div>

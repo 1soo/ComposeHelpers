@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
-import styles from "../Post/styles";
+import React, { useState, useEffect, forwardRef, useImperativeHandle } from "react";
 
-function Parts(props){
-
+const Parts = forwardRef((props, ref) =>{
     // 부품 state 변수
     const [cpu, setCpu] = useState("");
     const [gpCard, setGpCard] = useState("");
@@ -10,25 +8,42 @@ function Parts(props){
     const [memory, setMemory] = useState("");
     const [power, setPower] = useState("");
     const [cooler, setCooler] = useState("");
-    
-    // 부품 변수 값 가져오기
+
+    useImperativeHandle(ref, ()=>({
+        getValue: () => {
+            let parts = {
+                cpu: cpu,
+                gpCard: gpCard,
+                mainBoard: mainBoard,
+                memory: memory,
+                power: power,
+                cooler: cooler
+            }
+            return parts;
+        }
+    }));
+
     useEffect(()=>{
-        if(!props.EditOrCreate){
-            let partsArray = JSON.parse(localStorage.getItem('partsList')) || [];
-            if(partsArray.length !== 0){
-                let nowParts = partsArray.filter((part) => part.postId === props.postId)[0];
-                setCpu(nowParts.cpu);
-                setGpCard(nowParts.gpCard);
-                setMainBoard(nowParts.mainBoard);
-                setMemory(nowParts.memory);
-                setPower(nowParts.power);
-                setCooler(nowParts.cooler);
+        if(props.EditOrCreate){
+            document.querySelectorAll('.parts input').forEach((element) => {
+                element.setAttribute('disabled', true);
+            });
+        }else{
+            let savedParts = localStorage.getItem('parts');
+            if(savedParts){
+                let parts = JSON.parse(savedParts).filter((part)=>part.postId, props.postItem.postId)[0];
+                setCpu(parts.cpu);
+                setGpCard(parts.gpCard);
+                setMainBoard(parts.mainBoard);
+                setMemory(parts.memory);
+                setPower(parts.power);
+                setCooler(parts.cooler);
             }
         }
     }, []);
 
     // 부품 인풋 change 핸들러
-    function PartInputChangeHandler(event){
+    function PartInputHandler(event){
         switch(event.target.id){
             case 'cpu':
                 setCpu(event.target.value);
@@ -53,81 +68,38 @@ function Parts(props){
         }
     }
 
-    // 입력 완료 버튼
-    let completeOutPut = <button id="inputCompleteBtn" style={styles.completeOutPut} onClick={PartInputCompleteHandler}>입력 완료</button>
-
-    // 입력 완료 버튼 핸들러
-    function PartInputCompleteHandler(event){
-        if (!cpu.trim() || !gpCard.trim() || !mainBoard.trim() || !memory.trim() || !power.trim() || !cooler.trim()) {
-            alert("부품 정보를 모두 입력하세요.");
-            return;
-        }
-        let partObj = {
-            postId: 0,
-            cpu: cpu,
-            gpCard: gpCard,
-            mainBoard: mainBoard,
-            memory: memory,
-            power: power,
-            cooler: cooler
-        }
-        props.PartInputSaveHandler(partObj);
-    }
-
     return(
-        <div id="partsModal" style={styles.partsModal}>
-            <h3>부품 정보</h3>
-
-            <div className="partsList" style={styles.partsList}>
-                <div className="partsBox" style={styles.partsBox}>
-                    <label style={styles.partsLabel}>
-                        <span style={styles.partsTitle}>CPU</span>
-                        <input type="text" id="cpu" style={styles.partsText} value={cpu} onChange={PartInputChangeHandler} disabled={!props.EditOrCreate}/>
-                    </label>
-                </div>
-
-                <div className="partsBox" style={styles.partsBox}>
-                    <label style={styles.partsLabel}>
-                        <span style={styles.partsTitle}>그래픽카드</span>
-                        <input type="text" id="gpCard" style={styles.partsText} value={gpCard} onChange={PartInputChangeHandler} disabled={!props.EditOrCreate}/>
-                    </label>
-                </div>
-
-                <div className="partsBox" style={styles.partsBox}>
-                    <label style={styles.partsLabel}>
-                        <span style={styles.partsTitle}>메인보드</span>
-                        <input type="text" id="mainBoard" style={styles.partsText} value={mainBoard} onChange={PartInputChangeHandler} disabled={!props.EditOrCreate}/>
-                    </label>
-                </div>
-
-                <div className="partsBox" style={styles.partsBox}>
-                    <label style={styles.partsLabel}>
-                        <span style={styles.partsTitle}>메모리</span>
-                        <input type="text" id="memory" style={styles.partsText} value={memory} onChange={PartInputChangeHandler} disabled={!props.EditOrCreate}/>
-                    </label >
-                </div>
-
-                <div className="partsBox" style={styles.partsBox}>
-                    <label style={styles.partsLabel}>
-                        <span style={styles.partsTitle}>파워</span>
-                        <input type="text" id="power" style={styles.partsText} value={power} onChange={PartInputChangeHandler} disabled={!props.EditOrCreate}/>
-                    </label>
-                </div>
-
-                <div className="partsBox" style={styles.partsBox}>
-                    <label style={styles.partsLabel}>
-                        <span style={styles.partsTitle}>쿨러</span>
-                       <input type="text" id="cooler" style={styles.partsText} value={cooler} onChange={PartInputChangeHandler} disabled={!props.EditOrCreate}/>
-                    </label>
-                </div>
-            </div>
-
-            <div className="buttonContainer" style={styles.buttonContainer}>
-                <button className="closeInfoBtn" style={styles.closeInfoBtn} onClick={props.partCloseHandler} >정보 접기</button>
-                {props.EditOrCreate && completeOutPut}
-            </div>
-        </div>
+            <>
+                <label>부품 정보</label>
+                <table className="parts">
+                    <tbody>
+                        <tr>
+                            <td>CPU</td>
+                            <td><input type="text" id='cpu' value={cpu} onChange={PartInputHandler} /></td>
+                        </tr>
+                        <tr>
+                            <td>그래픽카드</td>
+                            <td><input type="text" id='gpCard' value={gpCard} onChange={PartInputHandler} /></td>
+                        </tr>
+                        <tr>
+                            <td>메인보드</td>
+                            <td><input type="text" id='mainBoard' value={mainBoard} onChange={PartInputHandler} /></td>
+                        </tr>
+                        <tr>
+                            <td>메모리</td>
+                            <td><input type="text" id='memory' value={memory} onChange={PartInputHandler} /></td>
+                        </tr>
+                        <tr>
+                            <td>파워</td>
+                            <td><input type="text" id='power' value={power} onChange={PartInputHandler} /></td>
+                        </tr>
+                        <tr>
+                            <td>쿨러</td>
+                            <td><input type="text" id='cooler' value={cooler} onChange={PartInputHandler} /></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </>
     )
-}
-
+})
 export default Parts;
