@@ -309,11 +309,12 @@ const styles = {
     },
     modalReplyListContainer: {
         width: '100%',
-        height: '150px',
+        height: '680px',
         overflowY: 'auto',
-        backgroundColor: '#f9f9f9',
+        backgroundColor: 'white',
         borderRadius: '5px',
-        border: '1px solid #ddd',
+        // border: '1px solid #ddd',
+        marginTop: '30px',
         marginBottom: '15px'
     },
     commentContainer: {
@@ -376,12 +377,14 @@ const styles = {
         marginRight: '175px'
     },
     modalReplyInputContainer:{
-        position: 'relative',
-        width: '100%',
-        height: '70px'    
+        position: 'absolute',
+        bottom: '10px',
+        right: '10px',
+        display: 'flex',
+        alignItems: 'center',
     },
     modalReplyInput:{
-        width: '470px',
+        width: '300px',
         height: '70px',
         resize: 'none',
         padding: '0px',
@@ -389,17 +392,18 @@ const styles = {
         borderRadius: '5px',
     },
     modalReplyInputBtn:{
-        position: 'absolute',
-        right: '0px',
-        width: '30px',
+        width: '80px',
         height: '70px',
-        resize: 'none',
         padding: '0px',
         border: '1px solid #00AE68',
         borderRadius: '5px',
         color: 'white',
         backgroundColor: '#00AE68',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginLeft: '5px',
     },
 
     completeOutPut: {
