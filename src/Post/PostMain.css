@@ -4,6 +4,7 @@
     box-sizing: border-box;
     border-collapse: collapse;
     color: #333;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 body{
     background-color: #eee;
@@ -12,16 +13,18 @@ body{
 #header{
     display: flex;
     align-items: center;
-    justify-content: space-between;
     width: 80%;
-    height: 100px;
+    height: 60px;
     margin: 0px auto;
     background-color: #f7f7f7;
     border-bottom: 2px solid #ddd;
 }
 /* 헤더 로고 */
 #header #imgBox{
-    height: 98px;
+    height: 40px;
+    margin-top: 10px;
+    margin-left: 50px;
+
 }
 #header #imgBox img{
     height: 100%;
@@ -30,11 +33,12 @@ body{
 #header #menu{
     width: 100px;
     height: 50px;
-    font-size: 30px;
+    margin-top: 10px;
+    margin-left: 40px;
+    font-size: 20px;
     text-align: center;
+    font-weight: bold;
     line-height: 50px;
-    margin-left: 100px;
-    margin-top: 50px;
     cursor: pointer;
 }
 #header #menu:hover{
@@ -51,6 +55,7 @@ body{
     border-radius: 5px;
     font-size: 16px;
     margin-right: 20px;
+    margin-left: 350px;
 }
 
 .addPostBtn:hover {
@@ -63,65 +68,78 @@ body{
     justify-content: space-evenly;
     width: 80%;
     margin: 0px auto;
-    height: 800px;
     background-color: #fff;
+    padding-bottom: 40px;
+    height: 2000px;
 }
 
 /* 문의 */
 #askSection{
     width: 45%;
-    height: 700px;
+    height: auto;
     margin-top: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 /* 추천 */
 #recmSection{
     width: 90%;
-    height: 700px;
+    height: auto;
     margin-top: 50px;
 }
 
 /* section title */
 #title{
+    padding-left: 10px;
     width: 100%;
     height: 50px;
-    font-size: 35px;
+    font-size: 20px;
+    font-weight: bold;
     line-height: 50px;
+    margin-right: 10px;
 }
 #askSection:first-child #title{
     border-bottom: 3px solid #fd8f4a;
+    margin-bottom: 10px;
 }
 #askSection:last-child #title{
     border-bottom: 3px solid #719462;
+    margin-bottom: 10px;
 }
 #recmSection #title{
-    border-bottom: 3px solid #645AF1
+    border-bottom: 3px solid #645AF1;
+    margin-bottom: 10px;
 }
 
 #listContainer{
     width: 100%;
-    height: 650px;
+    height: auto;
 }   
 
 /* 게시글 아이템 */
 #postItem{
     display: inline-block;
-    margin: 5px 3px;
-    padding: 10px 10px;
-    width: 300px;
+    margin: 10px;
+    padding: 10px;
+    width: 250px;
     height: 300px;
-    border: 1px solid #888;
+    border: 1px solid #c6c6c6;
     border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, border 0.3s;
+
 }
+
 #postItem:hover{
     cursor: pointer;
     background-color: #eee;
     border: 1px solid #333;
 }
-
 /* 게시글 아이템 내부 데이터 나타내기 */
 #postItem > div{
-    width: 280px;
+    width: 230px;
 }
 #itemTitle{
     height: 40px;
@@ -131,16 +149,20 @@ body{
     padding-left: 10px;
 }
 #itemContent{
+    width: 230px;
     height: 160px;
     font-size: 15px;
     padding-top: 5px;
     padding-left: 10px;
+    word-break: break-word; /* 긴 텍스트 자동 줄바꿈 */
 }
 #itemDate{
+    width: 230px;
     height: 25px;
     color: #aaa;
     border-bottom: 1px solid #222;
-    padding-left: 200px;
+    text-align: right;
+    padding-right: 10px;
 }
 #itemCommentCnt{
     height: 15px;
@@ -150,8 +172,7 @@ body{
     padding-left: 10px;
 }
 #itemTopComment{
-    height: 30px;
-    line-height: 20px;
+    height: auto;
     font-size: 14px;
     padding-left: 10px;
 }
